@@ -121,6 +121,7 @@ def home():
 	See its API: https://flask.palletsprojects.com/en/1.1.x/api/#incoming-request-data
 	"""
 
+"""
 #for when user searches specifically for a restaurant 
 @app.route('/search', methods=['GET'])
 def searchRestaurant(): 
@@ -153,11 +154,11 @@ def viewFriends():
 @app.route('/view/users', methods=['GET','POST'])
 def friendRequest():
 	return render_template('users.html')
-
-	#
-	# example of a database query
-	#
-	"""
+"""
+#
+# example of a database query
+#
+"""
 	select_query = "SELECT name from test"
 	cursor = g.conn.execute(text(select_query))
 	names = []
@@ -191,14 +192,14 @@ def friendRequest():
 	#     <div>{{n}}</div>
 	#     {% endfor %}
 	#
-	context = dict(data = names)
+#context = dict(data = names)
 
 
 	#
 	# render_template looks in the templates/ folder for files.
 	# for example, the below file reads template/index.html
 	#
-	return render_template("index.html", **context)
+#return render_template("index.html", **context)
 
 #
 # This is an example of a different path.  You can see it at:
