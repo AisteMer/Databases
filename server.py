@@ -43,19 +43,20 @@ engine = create_engine(DATABASEURI)
 #
 # Example of running queries in your database
 # Note that this will probably not work if you already have a table named 'test' in your database, containing meaningful data. This is only an example showing you how to run queries in your database using SQLAlchemy.
-#
-with engine.connect() as conn:
-	create_table_command = """
-	CREATE TABLE IF NOT EXISTS test (
-		id serial,
-		name text
-	)
-	"""
-	res = conn.execute(text(create_table_command))
-	insert_table_command = """INSERT INTO test(name) VALUES ('grace hopper'), ('alan turing'), ('ada lovelace')"""
-	res = conn.execute(text(insert_table_command))
+
+
+#with engine.connect() as conn:
+	#create_table_command = """
+	#CREATE TABLE IF NOT EXISTS test (
+		#id serial,
+		#name text
+	#)
+	
+	#res = conn.execute(text(create_table_command))
+	#insert_table_command = """INSERT INTO test(name) VALUES ('grace hopper'), ('alan turing'), ('ada lovelace')"""
+	#res = conn.execute(text(insert_table_command))
 	# you need to commit for create, insert, update queries to reflect
-	conn.commit()
+	#conn.commit()
 
 
 @app.before_request
@@ -101,7 +102,15 @@ def teardown_request(exception):
 #
 @app.route('/')
 def home():
-	return render_template('home.html')
+	with engine.connect() as conn:
+		select_restaurants= "SELECT * from Restaurant"
+		cursor=g.conn.execute((select_restaurants))
+		restaurant = cursor.fetchall()
+		cursor.close()
+		return render_template('home.html', restaurant=restaurant)
+
+
+
 	"""
 	request is a special object that Flask provides to access web request information:
 
