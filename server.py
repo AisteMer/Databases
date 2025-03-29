@@ -1,4 +1,3 @@
-
 """
 Columbia's COMS W4111.001 Introduction to Databases
 Example Webserver
@@ -9,7 +8,6 @@ A debugger such as "pdb" may be helpful for debugging.
 Read about it online.
 """
 import os
-  # accessible as a variable in index.html:
 from sqlalchemy import *
 from sqlalchemy.pool import NullPool
 from flask import Flask, request, render_template, g, redirect, Response
@@ -29,6 +27,7 @@ app = Flask(__name__, template_folder=tmpl_dir)
 #     DATABASEURI = "postgresql://zy2431:123123@34.148.223.31/proj1part2"
 #
 # Modify these with your own credentials you received from TA!
+
 DATABASE_USERNAME = "am5678"
 DATABASE_PASSWRD = "000271"
 DATABASE_HOST = "34.148.223.31"
@@ -40,23 +39,25 @@ DATABASEURI = f"postgresql://{DATABASE_USERNAME}:{DATABASE_PASSWRD}@{DATABASE_HO
 #
 engine = create_engine(DATABASEURI)
 
-#
-# Example of running queries in your database
-# Note that this will probably not work if you already have a table named 'test' in your database, containing meaningful data. This is only an example showing you how to run queries in your database using SQLAlchemy.
+"""
+Example of running queries in your database
+Note that this will probably not work if you already have a table named 'test' in your database, containing meaningful data. This is only an example showing you how to run queries in your database using SQLAlchemy.
 
 
-#with engine.connect() as conn:
-	#create_table_command = """
-	#CREATE TABLE IF NOT EXISTS test (
-		#id serial,
-		#name text
-	#)
+with engine.connect() as conn:
+	create_table_command =
+	CREATE TABLE IF NOT EXISTS test (
+		id serial,
+		name text
+	)
 	
-	#res = conn.execute(text(create_table_command))
-	#insert_table_command = """INSERT INTO test(name) VALUES ('grace hopper'), ('alan turing'), ('ada lovelace')"""
-	#res = conn.execute(text(insert_table_command))
-	# you need to commit for create, insert, update queries to reflect
-	#conn.commit()
+	res = conn.execute(text(create_table_command))
+	insert_table_command = INSERT INTO test(name) VALUES ('grace hopper'), ('alan turing'), ('ada lovelace')
+	res = conn.execute(text(insert_table_command))
+	you need to commit for create, insert, update queries to reflect
+	conn.commit()
+
+"""
 
 
 @app.before_request
@@ -102,12 +103,11 @@ def teardown_request(exception):
 #
 @app.route('/')
 def home():
-	with engine.connect() as conn:
-		select_restaurants= text("SELECT * from Restaurant")
-		cursor=g.conn.execute((select_restaurants))
-		restaurant = cursor.fetchall()
-		cursor.close()
-		return render_template('home.html', restaurant=restaurant)
+	select_restaurants= text("SELECT * from Restaurant")
+	cursor=g.conn.execute(select_restaurants)
+	restaurants = cursor.fetchall()
+	cursor.close()
+	return render_template('home.html', restaurants=restaurants)
 
 
 
@@ -209,6 +209,7 @@ def friendRequest():
 # Notice that the function name is another() rather than index()
 # The functions for each app.route need to have different names
 #
+"""
 @app.route('/another')
 def another():
 	return render_template("another.html")
@@ -233,6 +234,7 @@ def login():
 	abort(401)
 	this_is_never_executed()
 
+"""
 
 if __name__ == "__main__":
 	import click
