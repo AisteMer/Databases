@@ -13,7 +13,6 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{url_for('static', filename='main.css')}}">
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script> <!-- using this for the pop up window-->
 
     <title>Restaurant App</title>
@@ -31,10 +30,6 @@
                     <a class="nav-link" href="{{ url_for('home') }}">Home</a>
                 </li>
             </ul>
-            <form class="d-flex" action="{{ url_for('search') }}" method="GET">
-                <input class="form-control me-2" type="search" placeholder="Search restaurants" aria-label="Search" name="query">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
         </div>
     </div>
 </nav>
