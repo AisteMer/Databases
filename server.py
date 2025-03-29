@@ -103,7 +103,7 @@ def teardown_request(exception):
 @app.route('/')
 def home():
 	with engine.connect() as conn:
-		select_restaurants= "SELECT * from Restaurant"
+		select_restaurants= text("SELECT * from Restaurant")
 		cursor=g.conn.execute((select_restaurants))
 		restaurant = cursor.fetchall()
 		cursor.close()
