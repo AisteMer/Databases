@@ -100,7 +100,8 @@ def teardown_request(exception):
 # see for decorators: http://simeonfranklin.com/blog/2012/jul/1/python-decorators-in-12-steps/
 #
 @app.route('/')
-def index():
+def home():
+	return render_template('home.html')
 	"""
 	request is a special object that Flask provides to access web request information:
 
@@ -111,20 +112,50 @@ def index():
 	See its API: https://flask.palletsprojects.com/en/1.1.x/api/#incoming-request-data
 	"""
 
+#for when user searches specifically for a restaurant 
+@app.route('/search', methods=['GET'])
+def searchRestaurant(): 
+	return render_template(res.html) 
+	#make inidivial html pages for each restaurant 
 	# DEBUG: this is debugging code to see what request looks like
 	print(request.args)
 
 
+@app.route('/view/<restaurant>', methods=['GET', 'POST'])
+def viewRestaurant(): 
+	return render_template ('restaurant.html')
+
+@app.route('/view/<userName>', methods=['GET'])
+def viewProfile(): 
+	return render_template('userName.html')
+
+@app.route('/view/<userName>/Bookmarks', methods=['GET'])
+def viewAllBookmarks(): 
+	return render_template('Bookmark.html')
+
+@app.route('/view/<userName>/Bookmarks/<bookmarkName>', methods=['GET'])
+def viewSpecificBookmark(): 
+	return render_template('<bookmarkName>.html')
+
+@app.route('/view/<userName>/friends', methods=['GET'])
+def viewFriends(): 
+	return render_template('friends.html')
+
+@app.route('/view/users', methods=['GET','POST'])
+def friendRequest():
+	return render_template('users.html')
+
 	#
 	# example of a database query
 	#
+	"""
 	select_query = "SELECT name from test"
 	cursor = g.conn.execute(text(select_query))
 	names = []
 	for result in cursor:
 		names.append(result[0])
 	cursor.close()
-
+	"""
 	#
 	# Flask uses Jinja templates, which is an extension to HTML where you can
 	# pass data to a template and dynamically generate HTML based on the data
