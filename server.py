@@ -134,8 +134,8 @@ def searchRestaurant():
 
 @app.route('/view/<restaurant_name>')
 def viewRestaurant(restaurant_name): 
-    select_restaurant = text("SELECT * FROM Restaurant WHERE name = :name")
-    cursor = g.conn.execute(select_restaurant, {"name": restaurant_name})
+    select_restaurant = text("SELECT * FROM Restaurant WHERE restaurant_id = :id")
+    cursor = g.conn.execute(select_restaurant, {"id": restaurant_id})
     restaurant = cursor.fetchone()  # Fetch a single restaurant
     cursor.close()
 
