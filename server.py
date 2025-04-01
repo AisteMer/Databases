@@ -132,6 +132,13 @@ def searchRestaurant():
 	# DEBUG: this is debugging code to see what request looks like
 	print(request.args)
 
+@app.route('/view/<restaurant>')
+def viewRestaurant(): 
+	select_restaurants= text("SELECT name from Restaurant")
+	cursor=g.conn.execute(select_restaurants)
+	restaurants = cursor.fetchall()
+	cursor.close()
+	return render_template("displayRestaurant.html",restaurant=restaurants)
 
 """""
 @app.route('/view/<restaurant>', methods=['GET', 'POST'])
