@@ -31,6 +31,11 @@
                 </li>
             </ul>
         </div>
+        <form method = 'GET' action="{{url_for('searchRestaurant')}}"> 
+            <label for=" user input"> Enter a Restaurant:</label> <br> 
+            <input type="text" id="user_input" name="user_input"><br><br>
+            <input type="submit" value="Submit">
+        </form>
     </div>
 </nav>
     <div class="container">   

@@ -122,6 +122,7 @@ def home():
 	See its API: https://flask.palletsprojects.com/en/1.1.x/api/#incoming-request-data
 	"""
 
+
 """""
 #for when user searches specifically for a restaurant 
 @app.route('/search', methods=['GET'])
@@ -132,6 +133,7 @@ def searchRestaurant():
 	#make inidivial html pages for each restaurant 
 	# DEBUG: this is debugging code to see what request looks like
 	print(request.args)
+
 
 @app.route('/view/<restaurant>', methods=['GET', 'POST'])
 def viewRestaurant(): 
