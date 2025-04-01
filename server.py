@@ -134,15 +134,18 @@ def searchRestaurant():
 
 @app.route('/view/<int:restaurant_id>')
 def viewRestaurant(restaurant_id): 
-    select_restaurant = text("SELECT * FROM Restaurant WHERE restaurant_id = :restaurant_id")
-    cursor = g.conn.execute(select_restaurant, {"restaurant_id": restaurant_id})
-    restaurant = cursor.fetchone()  # Fetch a single restaurant
-    cursor.close()
+	select_restaurant = text("SELECT * FROM Restaurant WHERE restaurant_id = :restaurant_id")
+	cursor1 = g.conn.execute(select_restaurant, {"restaurant_id": restaurant_id})
+	restaurant = cursor1.fetchone()  # Fetch a single restaurant
+	
+	select_ratings = text("SELECT * FROM RATES WHERE restaurant_id=:restaurant_id")
+	cursor2= g.conn.execute(select_ratings, {"restaurant_id": restaurant_id})
+	ratings = cursor2.fetchall()  # Fetch a single restaurant
+	cursor1.close()
+	cursor2.close() 
+	
 
-    if not restaurant:
-        return "Restaurant not found", 404  # Handle case where restaurant is not found
-
-    return render_template("displayRestaurant.html", restaurant=restaurant)
+	return render_template("displayRestaurant.html", restaurant=restaurant, ratings=ratings)
 
 
 """""
