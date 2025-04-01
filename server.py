@@ -142,7 +142,7 @@ def viewRestaurant(restaurant_name):
     if not restaurant:
         return "Restaurant not found", 404  # Handle case where restaurant is not found
 
-    return render_template("displayRestaurant.html", restaurant_name=restaurant)
+    return render_template("displayRestaurant.html", restaurant=restaurant)
 
 
 """""

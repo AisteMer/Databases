@@ -1,9 +1,7 @@
 {% extends 'navbar.html' %}
 {% block content %}
-<head>
-    <title>Result</title>
-</head>
-<body>
-    <h1>hello world</h1>
-</body>
+<h1>{{ restaurant.name }}</h1>
+<p><strong>Price Tag:</strong> {{ restaurant.pricetag }}</p>
+<p><strong>Address:</strong> {{ restaurant.address }}</p>  
+
 {% endblock %}
