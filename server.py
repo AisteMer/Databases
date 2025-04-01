@@ -123,18 +123,18 @@ def home():
 	"""
 
 
-"""""
+
 #for when user searches specifically for a restaurant 
 @app.route('/search', methods=['GET'])
 def searchRestaurant(): 
-	results = []
-	query = ""
+	#results = []
+	#query = ""
 	return render_template(searchRestaurant.html) 
 	#make inidivial html pages for each restaurant 
 	# DEBUG: this is debugging code to see what request looks like
 	print(request.args)
 
-
+"""""
 @app.route('/view/<restaurant>', methods=['GET', 'POST'])
 def viewRestaurant(): 
 	return render_template ('restaurant.html')
