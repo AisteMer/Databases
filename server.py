@@ -132,13 +132,18 @@ def searchRestaurant():
 	# DEBUG: this is debugging code to see what request looks like
 	print(request.args)
 
-@app.route('/view/<restaurant>')
-def viewRestaurant(): 
-	select_restaurants= text("SELECT name from Restaurant")
-	cursor=g.conn.execute(select_restaurants)
-	restaurants = cursor.fetchall()
-	cursor.close()
-	return render_template("displayRestaurant.html",restaurant=restaurants)
+@app.route('/view/<restaurant_name>')
+def viewRestaurant(restaurant_name): 
+    select_restaurant = text("SELECT * FROM Restaurant WHERE name = :name")
+    cursor = g.conn.execute(select_restaurant, {"name": restaurant_name})
+    restaurant = cursor.fetchone()  # Fetch a single restaurant
+    cursor.close()
+
+    if not restaurant:
+        return "Restaurant not found", 404  # Handle case where restaurant is not found
+
+    return render_template("displayRestaurant.html", restaurant=restaurant)
+
 
 """""
 @app.route('/view/<restaurant>', methods=['GET', 'POST'])
