@@ -151,12 +151,17 @@ def viewRestaurant(restaurant_id):
 	cursor4= g.conn.execute(select_cuisines, {"restaurant_id": restaurant_id})
 	cuisines = cursor4.fetchall() #fetch all the cuisines of each res 
 	
+	select_awards = text("SELECT * FROM AWARDS WHERE restaurant_id=:restaurant_id")
+	cursor5= g.conn.execute(select_awards, {"restaurant_id": restaurant_id})
+	awards = cursor5.fetchall() #fetch all the awards for a res 
+
 	cursor1.close()
 	cursor2.close() 
 	cursor3.close()
 	cursor4.close()
+	cursor5.close()
 
-	return render_template("displayRestaurant.html", restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines)
+	return render_template("displayRestaurant.html", restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards)
 
 
 """""
