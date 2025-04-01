@@ -132,7 +132,7 @@ def searchRestaurant():
 	# DEBUG: this is debugging code to see what request looks like
 	print(request.args)
 
-@app.route('/view/<int: restaurant_id>')
+@app.route('/view/<int:restaurant_id>')
 def viewRestaurant(restaurant_id): 
     select_restaurant = text("SELECT * FROM Restaurant WHERE restaurant_id = :restaurant_id")
     cursor = g.conn.execute(select_restaurant, {"restaurant_id": restaurant_id})
