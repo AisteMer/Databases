@@ -2,6 +2,14 @@
 {% block content %}
 <h1>{{ restaurant.name }}</h1>
 <p><strong>Price Tag:</strong> {{ restaurant.pricetag }}</p>
+<p><strong> Locations:</strong></p>
+<p> {% for locations in locations %}
+    {{locations.address}} 
+    {{locations.city}}
+    {{locations.state}}
+    {{locations.country}}
+    {{locations.zipcode}}
+</p>
 <div class="container">
     <h2 class="mb-4 text-center">Restaurant Ratings</h2>
     <div class="row">

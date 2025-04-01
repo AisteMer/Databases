@@ -140,12 +140,18 @@ def viewRestaurant(restaurant_id):
 	
 	select_ratings = text("SELECT * FROM RATES WHERE restaurant_id=:restaurant_id")
 	cursor2= g.conn.execute(select_ratings, {"restaurant_id": restaurant_id})
-	ratings = cursor2.fetchall()  # Fetch a single restaurant
-	cursor1.close()
-	cursor2.close() 
+	ratings = cursor2.fetchall()  # Fetch all the comments 
 	
 
-	return render_template("displayRestaurant.html", restaurant=restaurant, ratings=ratings)
+	select_locations = text("SELECT * FROM IS_LOCATED WHERE restaurant_id=:restaurant_id")
+	cursor3= g.conn.execute(select_locations, {"restaurant_id": restaurant_id})
+	locations = cursor3.fetchall() #fetch all the locations 
+	
+	cursor1.close()
+	cursor2.close() 
+	cursor3.close()
+
+	return render_template("displayRestaurant.html", restaurant=restaurant, ratings=ratings, locations=locations)
 
 
 """""
