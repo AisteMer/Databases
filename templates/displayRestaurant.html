@@ -2,6 +2,19 @@
 {% block content %}
 <h1>{{ restaurant.name }}</h1>
 <p><strong>Price Tag:</strong> {{ restaurant.pricetag }}</p>
-<p><strong>Ratings:</strong>{{ratings.comment}}</p>
+<div class="container">
+    <h2 class="mb-4 text-center">Restaurants</h2>
+    <div class="row">
+        {% for comment in ratings %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ ratings.comment }}</h3>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 
 {% endblock %}
