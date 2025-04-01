@@ -122,9 +122,6 @@ def home():
 	See its API: https://flask.palletsprojects.com/en/1.1.x/api/#incoming-request-data
 	"""
 
-@app.route('/navbar')
-def navbar():
-    return render_template('navbar.html')
 
 #for when user searches specifically for a restaurant 
 @app.route('/search', methods=['GET'])
