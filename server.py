@@ -130,13 +130,11 @@ def searchRestaurant():
 	search_cuisines = text("SELECT * FROM ASSIGN_CUISINE, Restaurant WHERE cuisineName= :user_input AND assign_cuisine.restaurant_id=restaurant.restaurant_id")
 	cursor = g.conn.execute(search_cuisines, {"user_input": user_input})
 	restaurants=cursor.fetchall(); 
-	""""
+	
 	if search_cuisines: 
-		restaurant_id, cuisineName = search_cuisines[0]
-		average_rating = float(average_rating) if average_rating is not None else "No ratings yet"
+		restaurant_id, cuisineName, restaurant_id, priceTag, name = search_cuisines[0]
 	else: 
-		numReviews=0
-		average_rating= "No Reviews yet!"
+		name= "No Matching Results!"
 	"""
 	return render_template("searchRestaurant.html", restaurants=restaurants) 
 	#make inidivial html pages for each restaurant 
