@@ -155,13 +155,18 @@ def viewRestaurant(restaurant_id):
 	cursor5= g.conn.execute(select_awards, {"restaurant_id": restaurant_id})
 	awards = cursor5.fetchall() #fetch all the awards for a res 
 
+	select_avg_rating = text("SELECT COUNT(*) as numReviews, AVG(rating) as average rating, restaurant_id WHERE restaurant_id=:restaurant_id GROUP BY restaurant_id ")
+	cursor6= g.conn.execute(select_avg_rating, {"restaurant_id": restaurant_id})
+	awards = cursor6.fetchall() #fetch avg rating
+
 	cursor1.close()
 	cursor2.close() 
 	cursor3.close()
 	cursor4.close()
 	cursor5.close()
+	cursor6.close()
 
-	return render_template("displayRestaurant.html", restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards)
+	return render_template("displayRestaurant.html", restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=avg_rating)
 
 
 """""
