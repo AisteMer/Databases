@@ -136,7 +136,7 @@ def searchRestaurant():
 	else: 
 		name= "No Matching Results!"
 	
-	return render_template("searchRestaurant.html", restaurants=restaurants) 
+	return render_template("searchRestaurant.html", restaurants=restaurants, name=name, restaurant_id=restaurant_id, cuisineName=cuisineName, priceTag=priceTag) 
 	#make inidivial html pages for each restaurant 
 	# DEBUG: this is debugging code to see what request looks like
 	print(request.args)
