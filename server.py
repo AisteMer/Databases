@@ -135,7 +135,7 @@ def searchRestaurant():
 		restaurant_id, cuisineName, restaurant_id, priceTag, name = search_cuisines[0]
 	else: 
 		name= "No Matching Results!"
-	"""
+	
 	return render_template("searchRestaurant.html", restaurants=restaurants) 
 	#make inidivial html pages for each restaurant 
 	# DEBUG: this is debugging code to see what request looks like
