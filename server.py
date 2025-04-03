@@ -127,9 +127,17 @@ def home():
 @app.route('/search', methods=['GET'])
 def searchRestaurant(): 
 	user_input = request.args.get('user_input')
-	search_cuisines = text("SELECT * FROM ASSIGN_CUISINE WHERE cuisineName= :user_input")
+	search_cuisines = text("SELECT * FROM ASSIGN_CUISINE, Restaurant WHERE cuisineName= :user_input AND assign_cuisine.restaurant_id=restaurant.restaurant_id")
 	cursor = g.conn.execute(search_cuisines, {"user_input": user_input})
 	restaurants=cursor.fetchall(); 
+	""""
+	if search_cuisines: 
+		restaurant_id, cuisineName = search_cuisines[0]
+		average_rating = float(average_rating) if average_rating is not None else "No ratings yet"
+	else: 
+		numReviews=0
+		average_rating= "No Reviews yet!"
+	"""
 	return render_template("searchRestaurant.html", restaurants=restaurants) 
 	#make inidivial html pages for each restaurant 
 	# DEBUG: this is debugging code to see what request looks like
