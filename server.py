@@ -172,7 +172,7 @@ def viewRestaurant(restaurant_id):
 	cursor5.close()
 	cursor6.close()
 
-	return render_template("displayRestaurant.html", restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=avg_rating)
+	return render_template("displayRestaurant.html", restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=average_rating, numReviews=numReviews)
 
 
 """""
