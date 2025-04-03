@@ -5,6 +5,9 @@
 </head>
 <body>
     <h1>You entered:</h1>
-    <p>{{ name }}</p>
+    <p> {% for names in names %}
+        {{name}} <br> 
+    {% endfor %}
+    </p>
 </body>
 {% endblock %}
