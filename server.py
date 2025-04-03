@@ -127,15 +127,22 @@ def home():
 @app.route('/search', methods=['GET'])
 def searchRestaurant(): 
 	user_input = request.args.get('user_input')
-	search_cuisines = text("SELECT * FROM ASSIGN_CUISINE, Restaurant WHERE cuisineName= :user_input AND assign_cuisine.restaurant_id=restaurant.restaurant_id")
+	search_cuisines = text("""
+    SELECT r.restaurant_id, ac.cuisineName, r.priceTag, r.name 
+    FROM ASSIGN_CUISINE ac
+    JOIN Restaurant r ON ac.restaurant_id = r.restaurant_id
+    WHERE ac.cuisineName = :user_input
+	""")
 	cursor = g.conn.execute(search_cuisines, {"user_input": user_input})
 	restaurants=cursor.fetchall(); 
 	
 	if search_cuisines: 
-		restaurant_id, cuisineName, restaurant_id, priceTag, name = search_cuisines[0]
+		restaurant_id, cuisineName, priceTag, name = restaurants[0]
 	else: 
 		name= "No Matching Results!"
+		restaurant_id, cuisineName, priceTag = None, None, None 
 	
+	cursor.close() 
 	return render_template("searchRestaurant.html", restaurants=restaurants, name=name, restaurant_id=restaurant_id, cuisineName=cuisineName, priceTag=priceTag) 
 	#make inidivial html pages for each restaurant 
 	# DEBUG: this is debugging code to see what request looks like
