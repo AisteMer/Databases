@@ -159,6 +159,12 @@ def viewRestaurant(restaurant_id):
 	cursor6= g.conn.execute(select_avg_rating, {"restaurant_id": restaurant_id})
 	avg_rating = cursor6.fetchall() #fetch avg rating
 
+	if avg_rating: 
+		numReviews, average_rating, restaurant_id = avg_rating[0]
+		average_rating = float(average_rating)
+	else: 
+		print('No Reviews Yet!')
+
 	cursor1.close()
 	cursor2.close() 
 	cursor3.close()
