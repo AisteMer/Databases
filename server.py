@@ -129,7 +129,7 @@ def searchRestaurant():
 	user_input = request.args.get('user_input')
 	search_cuisines = text("SELECT * FROM ASSIGN_CUISINE WHERE cuisineName:user_input")
 	cursor = g.conn.execute(search_cuisines, {"cuisineName": user_input})
-	return render_template("searchRestaurant.html", search_cuisines=search_cuisines) 
+	return render_template("searchRestaurant.html", input=search_cuisines) 
 	#make inidivial html pages for each restaurant 
 	# DEBUG: this is debugging code to see what request looks like
 	print(request.args)
