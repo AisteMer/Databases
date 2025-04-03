@@ -155,7 +155,7 @@ def viewRestaurant(restaurant_id):
 	cursor5= g.conn.execute(select_awards, {"restaurant_id": restaurant_id})
 	awards = cursor5.fetchall() #fetch all the awards for a res 
 
-	select_avg_rating = text("SELECT COUNT(*) as numReviews, AVG(rating) as average rating, restaurant_id WHERE restaurant_id=:restaurant_id GROUP BY restaurant_id ")
+	select_avg_rating = text("SELECT COUNT(*) as numReviews, AVG(rating) as average_rating, restaurant_id FROM RATES WHERE restaurant_id=:restaurant_id GROUP BY restaurant_id ")
 	cursor6= g.conn.execute(select_avg_rating, {"restaurant_id": restaurant_id})
 	awards = cursor6.fetchall() #fetch avg rating
 
