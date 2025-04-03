@@ -161,9 +161,10 @@ def viewRestaurant(restaurant_id):
 
 	if avg_rating: 
 		numReviews, average_rating, restaurant_id = avg_rating[0]
-		average_rating = float(average_rating)
+		average_rating = float(average_rating) if average_rating is not None else "No ratings yet"
 	else: 
-		print('No Reviews Yet!')
+		numReviews=0
+		average_rating= "No Reviews yet!"
 
 	cursor1.close()
 	cursor2.close() 
