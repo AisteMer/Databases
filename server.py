@@ -133,8 +133,8 @@ def searchRestaurant():
     JOIN ASSIGN_CUISINE ac ON r.restaurant_id = ac.restaurant_id
 	JOIN is_located ON r.restaurant_id = is_located.restaurant_id 
     WHERE ac.cuisineName = :user_input
-	OR r.name = :user_input 
-	OR is_located.zipcode= :user_input
+		OR r.name = :user_input 
+		OR is_located.zipcode= :user_input
 	""")
 	cursor = g.conn.execute(search, {"user_input": user_input})
 	restaurants=cursor.fetchall(); 
