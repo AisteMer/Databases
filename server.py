@@ -211,22 +211,33 @@ def viewRestaurant(restaurant_id):
 		comment = request.form['user_input']
 		rating = request.form['rating']
 
-        
-		insert_comment = text("""
-		INSERT INTO RATES (restaurant_id, userName, rating, comment) 
-		VALUES (:restaurant_id, :username, :rating, :comment)
-		""")
+		check_username = text("SELECT * FROM USERS WHERE username = :username")
+		cursor7 = g.conn.execute(check_username, {"username": username})
+		user_exists = cursor7.fetchone()
 
-		g.conn.execute(insert_comment, {
-		'restaurant_id': restaurant_id,
-		'username': username,
-		'rating': rating,
-		'comment': comment
-		})
+		if user_exists: 
+			insert_comment = text("""
+			INSERT INTO RATES (restaurant_id, userName, rating, comment) 
+			VALUES (:restaurant_id, :username, :rating, :comment)
+			""")
 
-		g.conn.commit()
+			g.conn.execute(insert_comment, {
+			'restaurant_id': restaurant_id,
+			'username': username,
+			'rating': rating,
+			'comment': comment
+			})
 
-		return render_template('displayRestaurant.html', restaurant_id=restaurant_id,restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=average_rating, numReviews=numReviews)
+			g.conn.commit()
+
+			return render_template('displayRestaurant.html', restaurant_id=restaurant_id,restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=average_rating, numReviews=numReviews)
+		
+		else: 
+			error_message = "You must be a user to post a comment!"
+			return render_template("displayRestaurant.html", 
+                restaurant=restaurant, 
+                ratings=ratings, 
+                error_message=error_message)
 
 	return render_template("displayRestaurant.html", restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=average_rating, numReviews=numReviews)
 

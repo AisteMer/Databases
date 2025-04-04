@@ -43,6 +43,14 @@
         {% endfor %}
     </div>
 </div>
+
+{% if error_message %}
+<div class="error-message" style="color: red; font-weight: bold;">
+    {{ error_message }}
+</div>
+{% endif %}
+
+
 <div class="container"> 
 <h1>Submit your input:</h1>
 <form method="POST">
