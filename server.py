@@ -152,7 +152,7 @@ def user_info(userName):
 	cuisines = cursor1.fetchone()  
 	print (cuisines)
 	cursor1.close() 
-	return render_template("user_info.html", cuisines=cuisines, userName=userName)
+	return render_template("user_info.html", userName=userName, cuisines=cuisines)
 
 	"""
 	request is a special object that Flask provides to access web request information:
