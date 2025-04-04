@@ -133,10 +133,11 @@ def searchRestaurant():
 		user_input_zip = -1 
 
 	search = text("""
-    	SELECT r.restaurant_id, ac.cuisineName, r.priceTag, r.name, located.zipcode 
-    	FROM Restaurant r
+    	SELECT r.restaurant_id, ac.cuisineName, r.priceTag, r.name, located.zipcode, cuisine.region 
+    	FROM Restaurant r, cuisines cuisine
     	JOIN ASSIGN_CUISINE ac ON r.restaurant_id = ac.restaurant_id
 		JOIN is_located located ON r.restaurant_id = located.restaurant_id
+		JOIN ASSIGN_CUISINE ac ON cuisine.cuisineName = ac.cuisineName
     	WHERE ac.cuisineName = :user_input
 		OR r.name = :user_input
 		OR located.zipcode = :user_input_zip
@@ -153,7 +154,8 @@ def searchRestaurant():
 			'restaurant_id': None, 
 			'cuisineName': None, 
 			'priceTag': None, 
-			'zipcode': None 
+			'zipcode': None, 
+			'region': None 
 		}
 	
 	cursor.close() 
