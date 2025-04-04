@@ -127,14 +127,14 @@ def home():
 @app.route('/search', methods=['GET'])
 def searchRestaurant(): 
 	user_input = request.args.get('user_input')
-	search_cuisines = text("""
+	search = text("""
     SELECT r.restaurant_id, ac.cuisineName, r.priceTag, r.name 
     FROM ASSIGN_CUISINE ac
     JOIN Restaurant r ON ac.restaurant_id = r.restaurant_id
     WHERE ac.cuisineName = :user_input
 	OR r.name = :user_input
 	""")
-	cursor = g.conn.execute(search_cuisines, {"user_input": user_input})
+	cursor = g.conn.execute(search, {"user_input": user_input})
 	restaurants=cursor.fetchall(); 
 
 	if restaurants: 
