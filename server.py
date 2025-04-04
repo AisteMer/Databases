@@ -141,6 +141,7 @@ def searchRestaurant():
     	WHERE ac.cuisineName = :user_input
 		OR r.name = :user_input
 		OR located.zipcode = :user_input_zip
+		OR cuisine.region = :user_input
 		""")
 	cursor = g.conn.execute(search, {"user_input": user_input, "user_input_zip": user_input_zip})
 	restaurants=cursor.fetchall(); 
