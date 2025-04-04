@@ -22,11 +22,12 @@
     
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
 
-    {% if error_message %}
+{% if error_message %}
 <div class="error-message" style="color: red; font-weight: bold;">
     {{ error_message }}
 </div>
 {% endif %}
+
     <form action="{{url_for('login')}}" method="POST">
         <label for="username">Enter UserName:</label>
         <input type="text" id="username" name="username" required> <br> 
