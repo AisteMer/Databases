@@ -167,6 +167,27 @@ def searchRestaurant():
 
 @app.route('/view/<int:restaurant_id>', methods=['GET','POST'])
 def viewRestaurant(restaurant_id): 
+	
+	if request.method == 'POST':
+		username = request.form['username']
+		comment = request.form['user_input']
+		rating = request.form['rating']
+
+        
+		insert_comment = text("""
+		INSERT INTO RATES (restaurant_id, userName, rating, comment) 
+		VALUES (:restaurant_id, :username, :rating, :comment)
+		""")
+
+		g.conn.execute(insert_comment, {
+		'restaurant_id': restaurant_id,
+		'username': username,
+		'rating': rating,
+		'comment': comment
+		})
+
+		return render_template('displayRestaurant.html', restaurant_id=restaurant_id,restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=average_rating, numReviews=numReviews)
+
 	select_restaurant = text("SELECT * FROM Restaurant WHERE restaurant_id = :restaurant_id")
 	cursor1 = g.conn.execute(select_restaurant, {"restaurant_id": restaurant_id})
 	restaurant = cursor1.fetchone()  # Fetch a single restaurant
@@ -206,26 +227,7 @@ def viewRestaurant(restaurant_id):
 	cursor5.close()
 	cursor6.close()
 
-	if request.method == 'POST':
-		username = request.form['username']
-		comment = request.form['user_input']
-		rating = request.form['rating']
-
-        
-		insert_comment = text("""
-		INSERT INTO RATES (restaurant_id, userName, rating, comment) 
-		VALUES (:restaurant_id, :username, :rating, :comment)
-		""")
-
-		g.conn.execute(insert_comment, {
-		'restaurant_id': restaurant_id,
-		'username': username,
-		'rating': rating,
-		'comment': comment
-		})
-
-		return render_template('displayRestaurant.html', restaurant_id=restaurant_id,restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=average_rating, numReviews=numReviews)
-
+	
 	return render_template("displayRestaurant.html", restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=average_rating, numReviews=numReviews)
 
 """""
