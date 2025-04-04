@@ -127,12 +127,22 @@ def login():
 
 		if result_password:
 			return render_template("user_info.html")
-		else:
+		
+		else: 
 			error_message = "Your username or password was incorrect. Please try again!"
-
+			select_restaurants= text("SELECT * from Restaurant")
+			cursor=g.conn.execute(select_restaurants)
+			restaurants = cursor.fetchall()
+			cursor.close()
+			return render_template('home.html', restaurants=restaurants, error_message=error_message)
+	
 	else: 
-		error_message = "Your username or password was incorrect. Please try again!"
+		select_restaurants= text("SELECT * from Restaurant")
+		cursor=g.conn.execute(select_restaurants)
+		restaurants = cursor.fetchall()
+		cursor.close()
 		return render_template('home.html', restaurants=restaurants)
+	
 
 
 @app.route('/user_info')
