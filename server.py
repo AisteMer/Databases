@@ -150,7 +150,19 @@ def user_info(userName):
 	select_fav_cuisine = text("SELECT * FROM has_fav WHERE userName = :userName")
 	cursor1 = g.conn.execute(select_fav_cuisine, {"userName": userName})
 	cuisines = cursor1.fetchone()  
+
+	cuisines={}
+
+	if cuisines: 
+		pass 
+	else: 
+		cuisines={
+			"username": userName, 
+			"cuisineName": None
+		}
+	
 	cursor1.close() 
+
 	return render_template("user_info.html", userName=userName, cuisines=cuisines)
 
 	"""
