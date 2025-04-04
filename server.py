@@ -151,7 +151,7 @@ def user_info(userName):
 	cursor1 = g.conn.execute(select_fav_cuisine, {"userName": userName})
 	cuisines = cursor1.fetchone()  
 
-	cuisine={}
+	cuisine=cuisines
 
 	if cuisine: 
 		pass 
