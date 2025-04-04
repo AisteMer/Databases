@@ -112,9 +112,9 @@ def home():
 
 
 
-@app.route('/login', methods=['GET'])
+@app.route('/login', methods=['POST'])
 def login():
-	if request.method == 'GET':
+	if request.method == 'POST':
 		username = request.form['username']
 		password = request.form['password']
 
@@ -141,6 +141,11 @@ def login():
 		return render_template('home.html', restaurants=restaurants)
 
 	"""
+
+@app.route('/user_info')
+def user_info():
+	return render_template("user_info.html")
+
 	"""
 	request is a special object that Flask provides to access web request information:
 
@@ -269,6 +274,8 @@ def viewRestaurant(restaurant_id):
                 error_message=error_message)
 
 	return render_template("displayRestaurant.html", restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=average_rating, numReviews=numReviews)
+
+
 
 """""
 @app.route('/view/<restaurant>', methods=['GET', 'POST'])
