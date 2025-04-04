@@ -150,7 +150,7 @@ def user_info(userName):
 	select_fav_cuisine = text("SELECT * FROM has_fav WHERE userName = :userName")
 	cursor1 = g.conn.execute(select_fav_cuisine, {"userName": userName})
 	cuisines = cursor1.fetchone()  
-
+	print (cuisines)
 	cuisine=cuisines
 
 	if cuisine: 
