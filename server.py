@@ -112,7 +112,7 @@ def home():
 
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['POST','GET'])
 def login():
 	if request.method == 'POST':
 		username = request.form['username']
