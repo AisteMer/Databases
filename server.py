@@ -140,13 +140,12 @@ def searchRestaurant():
 		""")
 	else: 
 		search = text("""
-    	SELECT r.restaurant_id, ac.cuisineName, r.priceTag, r.name, located.zipcode 
+    	SELECT r.restaurant_id, ac.cuisineName, r.priceTag, r.name
     	FROM Restaurant r
     	JOIN ASSIGN_CUISINE ac ON r.restaurant_id = ac.restaurant_id
 		JOIN is_located located ON r.restaurant_id = located.restaurant_id
     	WHERE ac.cuisineName = :user_input
 		OR r.name = :user_input
-		OR located.zipcode = :user_input 
 		""")
 	cursor = g.conn.execute(search, {"user_input": user_input, "user_input_zip": user_input_zip})
 	restaurants=cursor.fetchall(); 
