@@ -112,7 +112,7 @@ def home():
 
 
 
-@app.route('/login', methods=['GET','POST'])
+@app.route('/login', methods=['POST'])
 def login():
 	if request.method == 'POST':
 		username = request.form['username']
@@ -255,7 +255,7 @@ def viewRestaurant(restaurant_id):
 			})
 
 			g.conn.commit()
-
+			cursor7.close()
 			return render_template('displayRestaurant.html', restaurant_id=restaurant_id,restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=average_rating, numReviews=numReviews)
 		
 		else: 
