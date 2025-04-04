@@ -127,8 +127,8 @@ def home():
 @app.route('/search', methods=['GET'])
 def searchRestaurant(): 
 	user_input = request.args.get('user_input')
-	is_zip = user_input.isdigit()
-	if is_zip: 
+	if user_input.isdigit(): 
+		user_input_zip = int(user_input)
 		search = text("""
     	SELECT r.restaurant_id, ac.cuisineName, r.priceTag, r.name, located.zipcode 
     	FROM Restaurant r
@@ -148,7 +148,7 @@ def searchRestaurant():
 		OR r.name = :user_input
 		OR located.zipcode = :user_input 
 		""")
-	cursor = g.conn.execute(search, {"user_input": user_input})
+	cursor = g.conn.execute(search, {"user_input": user_input, "user_input_zip": user_input_zip})
 	restaurants=cursor.fetchall(); 
 
 	if restaurants: 
