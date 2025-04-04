@@ -128,23 +128,25 @@ def home():
 def searchRestaurant(): 
 	user_input = request.args.get('user_input')
 	search = text("""
-    SELECT r.restaurant_id, ac.cuisineName, r.priceTag, r.name 
+    SELECT r.restaurant_id, ac.cuisineName, r.priceTag, r.name, located.zipcode 
     FROM Restaurant r
     JOIN ASSIGN_CUISINE ac ON r.restaurant_id = ac.restaurant_id
+	JOIN is_located located ON r.restaurant_id = located.restaurant_id
     WHERE ac.cuisineName = :user_input
-	OR r.name = :user_input 
+	OR r.name = :user_input
+	OR located.zipcode = :user_input 
 	""")
 	cursor = g.conn.execute(search, {"user_input": user_input})
 	restaurants=cursor.fetchall(); 
 
 	if restaurants: 
-		restaurant_id, cuisineName, priceTag, name = restaurants[0]
+		restaurant_id, cuisineName, priceTag, name, zipcode = restaurants[0]
 	else: 
 		name= "No Matching Results!"
 		restaurant_id, cuisineName, priceTag= None, None, None 
 	
 	cursor.close() 
-	return render_template("searchRestaurant.html", restaurants=restaurants, name=name, restaurant_id=restaurant_id, cuisineName=cuisineName, priceTag=priceTag) 
+	return render_template("searchRestaurant.html", restaurants=restaurants, name=name, restaurant_id=restaurant_id, cuisineName=cuisineName, priceTag=priceTag, zipcode=zipcode) 
 	#make inidivial html pages for each restaurant 
 	# DEBUG: this is debugging code to see what request looks like
 	print(request.args)
