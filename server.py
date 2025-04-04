@@ -151,19 +151,19 @@ def user_info(userName):
 	cursor1 = g.conn.execute(select_fav_cuisine, {"userName": userName})
 	cuisines = cursor1.fetchone()  
 
-	cuisines={}
+	cuisine={}
 
-	if cuisines: 
+	if cuisine: 
 		pass 
 	else: 
-		cuisines={
+		cuisine={
 			"username": userName, 
 			"cuisineName": None
 		}
 	
 	cursor1.close() 
 
-	return render_template("user_info.html", userName=userName, cuisines=cuisines)
+	return render_template("user_info.html", userName=userName, cuisine=cuisine)
 
 	"""
 	request is a special object that Flask provides to access web request information:
