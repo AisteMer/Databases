@@ -112,9 +112,9 @@ def home():
 
 
 
-@app.route('/login', methods=['POST'])
+@app.route('/login', methods=['GET'])
 def login():
-	if request.method == 'POST':
+	if request.method == 'GET':
 		username = request.form['username']
 		password = request.form['password']
 
@@ -129,7 +129,7 @@ def login():
 			return render_template("user_info.html")
 		else:
 			error_message = "Your username or password was incorrect. Please try again!"
-			
+
 		return render_template("user_info.html")
 	""""
 	else: 
