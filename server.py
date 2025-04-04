@@ -149,7 +149,7 @@ def login():
 def user_info(userName):
 	select_fav_cuisine = text("SELECT * FROM has_fav WHERE userName = :userName")
 	cursor1 = g.conn.execute(select_fav_cuisine, {"userName": userName})
-	cuisines = cursor1.fetchall()  
+	cuisines = cursor1.fetchone()  
 	print (cuisines)
 	cursor1.close() 
 	return render_template("user_info.html", cuisines=cuisines, userName=userName)
