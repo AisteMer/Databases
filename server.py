@@ -126,7 +126,7 @@ def login():
 			result_password = g.conn.execute(check_password, {"username": username, "password": password}).fetchone()
 
 		if result_password:
-			return render_template("user_info.html")
+			return render_template("user_info.html", username=username)
 		
 		else: 
 			error_message = "Your username or password was incorrect. Please try again!"
