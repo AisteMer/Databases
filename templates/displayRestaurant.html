@@ -46,6 +46,7 @@
 <div class="container"> 
 <h1>Submit your input:</h1>
 <form method="POST">
+    <input type="hidden" name="restaurant_id" value="{{ restaurant_id }}">
     <label for="username">Enter UserName:</label>
     <input type="text" id="username" name="username" required> <br> 
     <label for="user_input">Enter comment:</label>

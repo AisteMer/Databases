@@ -165,7 +165,7 @@ def searchRestaurant():
 	# DEBUG: this is debugging code to see what request looks like
 	print(request.args)
 
-@app.route('/view/<int:restaurant_id>')
+@app.route('/view/<int:restaurant_id>', methods=['GET','POST'])
 def viewRestaurant(restaurant_id): 
 	select_restaurant = text("SELECT * FROM Restaurant WHERE restaurant_id = :restaurant_id")
 	cursor1 = g.conn.execute(select_restaurant, {"restaurant_id": restaurant_id})
@@ -206,8 +206,27 @@ def viewRestaurant(restaurant_id):
 	cursor5.close()
 	cursor6.close()
 
-	return render_template("displayRestaurant.html", restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=average_rating, numReviews=numReviews)
+	if request.method == 'POST':
+		username = request.form['username']
+		comment = request.form['user_input']
+		rating = request.form['rating']
 
+        
+		insert_comment = text("""
+		INSERT INTO RATES (restaurant_id, userName, rating, comment) 
+		VALUES (:restaurant_id, :username, :rating, :comment)
+		""")
+
+		g.conn.execute(insert_comment, {
+		'restaurant_id': restaurant_id,
+		'username': username,
+		'rating': rating,
+		'comment': comment
+		})
+
+		return redirect(url_for('viewRestaurant', restaurant_id=restaurant_id))
+
+	return render_template("displayRestaurant.html", restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=average_rating, numReviews=numReviews)
 
 """""
 @app.route('/view/<restaurant>', methods=['GET', 'POST'])
