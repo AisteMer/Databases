@@ -147,7 +147,7 @@ def login():
 
 @app.route('/login/<username>', methods=['GET'])
 def user_info(username):
-	select_fav_cuisine = text("SELECT * FROM has_fav WHERE userName = :username")
+	select_fav_cuisine = text("SELECT * FROM has_fav WHERE userName = :userName")
 	cursor1 = g.conn.execute(select_fav_cuisine, {"userName": username})
 	cuisines = cursor1.fetchone()  
 	cursor1.close() 
