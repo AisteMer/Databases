@@ -135,7 +135,7 @@ def searchRestaurant():
 	""")
 	cursor = g.conn.execute(search_cuisines, {"user_input": user_input})
 	restaurants=cursor.fetchall(); 
-	
+
 	if restaurants: 
 		restaurant_id, cuisineName, priceTag, name = restaurants[0]
 	else: 
