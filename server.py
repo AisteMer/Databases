@@ -129,7 +129,10 @@ def searchRestaurant():
 	user_input = request.args.get('user_input')
 	if user_input.isdigit(): 
 		user_input_zip = int(user_input)
-		search = text("""
+	else: 
+		user_input_zip = -1 
+
+	search = text("""
     	SELECT r.restaurant_id, ac.cuisineName, r.priceTag, r.name, located.zipcode 
     	FROM Restaurant r
     	JOIN ASSIGN_CUISINE ac ON r.restaurant_id = ac.restaurant_id
@@ -138,26 +141,23 @@ def searchRestaurant():
 		OR r.name = :user_input
 		OR located.zipcode = :user_input 
 		""")
-	else: 
-		search = text("""
-    	SELECT r.restaurant_id, ac.cuisineName, r.priceTag, r.name
-    	FROM Restaurant r
-    	JOIN ASSIGN_CUISINE ac ON r.restaurant_id = ac.restaurant_id
-		JOIN is_located located ON r.restaurant_id = located.restaurant_id
-    	WHERE ac.cuisineName = :user_input
-		OR r.name = :user_input
-		""")
 	cursor = g.conn.execute(search, {"user_input": user_input, "user_input_zip": user_input_zip})
 	restaurants=cursor.fetchall(); 
 
+	restaurant_details={}
 	if restaurants: 
-		restaurant_id, cuisineName, priceTag, name, zipcode = restaurants[0]
+		pass 
 	else: 
-		name= "No Matching Results!"
-		restaurant_id, cuisineName, priceTag, zipcode = None, None, None, None 
+		restaurant_details= {
+			'name': "No Matching Results", 
+			'restaurant_id': None, 
+			'cuisineName': None, 
+			'priceTag': None, 
+			'zipcode': None 
+		}
 	
 	cursor.close() 
-	return render_template("searchRestaurant.html", restaurants=restaurants, name=name, restaurant_id=restaurant_id, cuisineName=cuisineName, priceTag=priceTag, zipcode=zipcode) 
+	return render_template("searchRestaurant.html", restaurants=restaurants, **restaurant_details) 
 	#make inidivial html pages for each restaurant 
 	# DEBUG: this is debugging code to see what request looks like
 	print(request.args)

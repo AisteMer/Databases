@@ -6,7 +6,11 @@
 <body>
     <h1>Search Results:</h1>
     <p> {% for restaurant in restaurants %}
-        {{restaurant}} <br> 
+        Restaurant ID: {{ restaurant[0] }}, <br> 
+        Cuisine: {{ restaurant[1] }}, <br> 
+        Price: {{ restaurant[2] }}, <br> 
+        Name: {{ restaurant[3] }}, <br> 
+        Zipcode: {{ restaurant[4] }} <br>
     {% endfor %}
     </p>
 </body>
