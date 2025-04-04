@@ -130,8 +130,6 @@ def login():
 		else:
 			error_message = "Your username or password was incorrect. Please try again!"
 
-		return render_template("user_info.html")
-	""""
 	else: 
 		error_message = "Your username or password was incorrect. Please try again!"
 		select_restaurants= text("SELECT * from Restaurant")
@@ -140,7 +138,6 @@ def login():
 		cursor.close()
 		return render_template('home.html', restaurants=restaurants)
 
-	"""
 
 @app.route('/user_info')
 def user_info():
