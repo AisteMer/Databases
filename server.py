@@ -119,11 +119,11 @@ def login():
 		password = request.form['password']
 
 		check_username = text("SELECT * FROM USERS WHERE username = :username")
-		result_username = g.conn.execute(check_username, username=username).fetchone()
+		result_username = g.conn.execute(check_username, {"username": username}).fetchone()
 		
 		if result_username: 
 			check_password = text("SELECT * FROM USERS WHERE username = :username AND password = :password")
-			result_password = g.conn.execute(check_password, username=username, password=password).fetchone()
+			result_password = g.conn.execute(check_password, {"username": username, "password": password}).fetchone()
 
 		if result_password:
 			return render_template("user_info.html")
