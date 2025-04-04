@@ -112,6 +112,25 @@ def home():
 
 
 
+@app.route('/login', methods=['GET','POST'])
+def login():
+	if request.method == 'POST':
+		username = request.form['username']
+		password = request.form['password']
+
+		check_username = text("SELECT * FROM USERS WHERE username = :username")
+		check_password = text("SELECT * FROM USERS WHERE password = :password")
+
+		if check_username & check_password: 
+			return render_template("user_info.html")
+		else: 
+			error_message = "Your username or password was incorrect. Please try again!"
+			select_restaurants= text("SELECT * from Restaurant")
+			cursor=g.conn.execute(select_restaurants)
+			restaurants = cursor.fetchall()
+			cursor.close()
+			return render_template('home.html', restaurants=restaurants)
+
 	"""
 	request is a special object that Flask provides to access web request information:
 
