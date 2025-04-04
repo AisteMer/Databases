@@ -139,7 +139,7 @@ def searchRestaurant():
 		JOIN is_located located ON r.restaurant_id = located.restaurant_id
     	WHERE ac.cuisineName = :user_input
 		OR r.name = :user_input
-		OR located.zipcode = :user_input 
+		OR located.zipcode = :user_input_zip
 		""")
 	cursor = g.conn.execute(search, {"user_input": user_input, "user_input_zip": user_input_zip})
 	restaurants=cursor.fetchall(); 
@@ -157,7 +157,7 @@ def searchRestaurant():
 		}
 	
 	cursor.close() 
-	return render_template("searchRestaurant.html", restaurants=restaurants, **restaurant_details) 
+	return render_template("searchRestaurant.html", restaurants=restaurants, restaurant_details=restaurant_details) 
 	#make inidivial html pages for each restaurant 
 	# DEBUG: this is debugging code to see what request looks like
 	print(request.args)
