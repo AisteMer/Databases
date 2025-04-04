@@ -224,7 +224,7 @@ def viewRestaurant(restaurant_id):
 		'comment': comment
 		})
 
-		return redirect(url_for('viewRestaurant', restaurant_id=restaurant_id))
+		return redirect(url_for('displayRestaurant', restaurant_id=restaurant_id))
 
 	return render_template("displayRestaurant.html", restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=average_rating, numReviews=numReviews)
 
