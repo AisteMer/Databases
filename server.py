@@ -119,17 +119,24 @@ def login():
 		password = request.form['password']
 
 		check_username = text("SELECT * FROM USERS WHERE username = :username")
-		check_password = text("SELECT * FROM USERS WHERE password = :password")
+		result_username = g.conn.execute(check_username, username=username).fetchone()
+		
+		if result_username: 
+			check_password = text("SELECT * FROM USERS WHERE username = :username AND password = :password")
+			result_password = g.conn.execute(check_password, username=username, password=password).fetchone()
 
-		if check_username & check_password: 
+		if result_password:
 			return render_template("user_info.html")
-		else: 
+		else:
 			error_message = "Your username or password was incorrect. Please try again!"
-			select_restaurants= text("SELECT * from Restaurant")
-			cursor=g.conn.execute(select_restaurants)
-			restaurants = cursor.fetchall()
-			cursor.close()
-			return render_template('home.html', restaurants=restaurants)
+
+	else: 
+		error_message = "Your username or password was incorrect. Please try again!"
+		select_restaurants= text("SELECT * from Restaurant")
+		cursor=g.conn.execute(select_restaurants)
+		restaurants = cursor.fetchall()
+		cursor.close()
+		return render_template('home.html', restaurants=restaurants)
 
 	"""
 	request is a special object that Flask provides to access web request information:
