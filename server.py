@@ -145,9 +145,13 @@ def login():
 	
 
 
-@app.route('/user_info')
-def user_info():
-	return render_template("user_info.html")
+@app.route('/view/<userName>')
+def user_info(userName):
+	select_fav_cuisine = text("SELECT * FROM has_fav WHERE userName = :userName")
+	cursor1 = g.conn.execute(select_fav_cuisine, {"userName": userName})
+	cuisines = cursor1.fetchall()  
+	cursor1.close() 
+	return render_template("user_info.html", cuisines=cuisines)
 
 	"""
 	request is a special object that Flask provides to access web request information:
