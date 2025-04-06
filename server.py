@@ -215,8 +215,8 @@ def searchRestaurant():
 	print(request.args)
 
 
-@app.route('/view/friend/<userName>', methods=['GET'])
-def viewFriend(userName): 
+@app.route('/view/friend/<username>', methods=['GET'])
+def viewFriend(username): 
 	#select_comments = text("SELECT comment FROM RATES WHERE userName= :userName")
 	return render_template("friend.html")
 
