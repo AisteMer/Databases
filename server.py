@@ -156,8 +156,6 @@ def user_info(username):
 	cursor2= g.conn.execute(select_friends, {"username": username})
 	friends = cursor2.fetchall() 
 	
-	if friends: 
-		pass
 
 	cursor1.close() 
 	cursor2.close()
