@@ -214,6 +214,12 @@ def searchRestaurant():
 	# DEBUG: this is debugging code to see what request looks like
 	print(request.args)
 
+
+@app.route('/view/friend/<userName>', methods=['GET'])
+def viewFriend(userName): 
+	#select_comments = text("SELECT comment FROM RATES WHERE userName= :userName")
+	return render_template("friend.html")
+
 @app.route('/view/<int:restaurant_id>', methods=['GET','POST'])
 def viewRestaurant(restaurant_id): 
 	select_restaurant = text("SELECT * FROM Restaurant WHERE restaurant_id = :restaurant_id")
