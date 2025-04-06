@@ -20,4 +20,28 @@
     </div>
 </div>
 
+
+
+<div class="container">
+    <h2 class="mb-4 text-center">Bookmarks</h2>
+    {% set current = None %}
+    {% for row in bookmarks %}
+        {% if current != row.bookmark_id %}
+            {% if not loop.first %}
+                </ul>
+            {% endif %}
+            <h3>Bookmark {{ row.bookmarkname}}</h3>
+            <ul>
+            {% set current = row.bookmark_id %}
+        {% endif %}
+        <li>{{ row.restaurant_name }}</li>
+        {% if loop.last %}
+            </ul>
+        {% endif %}
+    {% endfor %}
+</div>
+
 {% endblock %}
+
+
+
