@@ -223,18 +223,17 @@ def viewFriend(username):
 						WHERE username= :username
 						""")
 	
-	#select_bookmarks = text("""
-		#SELECT *  
-		#FROM BOOKMARK bookmark
-		#JOIN Restaurant r on bookmark.restaurant_id = r. restaurant_id
-		#WHERE username= :username
-		#GROUP BY bookmark.bookmark_id
-	#""")
+	select_bookmarks = text("""
+		SELECT *  
+		FROM BOOKMARK bookmark
+		JOIN Restaurant r on bookmark.restaurant_id = r. restaurant_id
+		WHERE username= :username
+	""")
 	cursor1=g.conn.execute(select_comments, {"username": username})
 	comments = cursor1.fetchall()
-	#cursor2=g.conn.execute(select_bookmarks, {"username": username})
-	#bookmarks = cursor2.fetchall()
-	return render_template("friend.html", comments=comments,username=username)
+	cursor2=g.conn.execute(select_bookmarks, {"username": username})
+	bookmarks = cursor2.fetchall()
+	return render_template("friend.html", comments=comments,username=username, bookmarks=bookmarks)
 
 @app.route('/view/<int:restaurant_id>', methods=['GET','POST'])
 def viewRestaurant(restaurant_id): 
