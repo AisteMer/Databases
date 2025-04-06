@@ -150,9 +150,20 @@ def user_info(username):
 	select_fav_cuisine = text("SELECT * FROM has_fav WHERE userName = :userName")
 	cursor1 = g.conn.execute(select_fav_cuisine, {"userName": username})
 	cuisines = cursor1.fetchone()  
-	cursor1.close() 
+	
 
-	return render_template("user_info.html", username=username, cuisines=cuisines)
+	select_friends = text ("SELECT * FROM has_friendship WHERE userName = :userName")
+	cursor2= g.conn.execute(select_friends, {"userName": username})
+	friends = cursor2.fetchall() 
+	
+	if friends: 
+		pass
+	else: 
+		message = "you have no friends yet ;("
+
+	cursor1.close() 
+	cursor2.close()
+	return render_template("user_info.html", username=username, cuisines=cuisines, friends=friends, message=message)
 
 	"""
 	request is a special object that Flask provides to access web request information:

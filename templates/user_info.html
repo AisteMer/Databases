@@ -3,6 +3,16 @@
 <head>
 </head>
 <h1>username: {{username}}</h1>
-<h6>favorite cuisine: {{cuisines.cuisinename}}</h6>
+<h3>favorite cuisine: {{cuisines.cuisinename}}</h3>
+<br> 
+<br> 
+<h3> Current Friends:</h3><br> 
+{%if message} 
+    {{message}}<br> 
+{% endif %}
 
+{% for friend in friends %}
+    {friend} <br> 
+
+{%end for%}
 {% endblock %}
