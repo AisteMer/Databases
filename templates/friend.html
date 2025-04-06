@@ -29,15 +29,16 @@
             {% if current is not none %}
                 </ul> <!-- Close the previous bookmark's restaurant list -->
             {% endif %}
-            <h3>Bookmark: {{ row.bookmarkname }}</h3>
+            <h3>Bookmark {{ row.bookmarkname }}</h3>
             <ul>
             {% set current = row.bookmark_id %}
         {% endif %}
         <li>{{ row.name }}</li>
     {% endfor %}
-    </ul> <!-- Close the last bookmark's restaurant list -->
+    {% if bookmarks %}
+        </ul> <!-- Close the last bookmark's restaurant list -->
+    {% endif %}
 </div>
-
 
 {% endblock %}
 
