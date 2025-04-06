@@ -152,8 +152,8 @@ def user_info(username):
 	cuisines = cursor1.fetchone()  
 	
 
-	select_friends = text ("SELECT * FROM has_friendship WHERE userName = :userName")
-	cursor2= g.conn.execute(select_friends, {"userName": username})
+	select_friends = text ("SELECT * FROM has_friendship WHERE username1 = :username")
+	cursor2= g.conn.execute(select_friends, {"username1": username})
 	friends = cursor2.fetchall() 
 	
 	if friends: 
@@ -163,7 +163,7 @@ def user_info(username):
 
 	cursor1.close() 
 	cursor2.close()
-	return render_template("user_info.html", username=username, cuisines=cuisines, friends=friends, message=message)
+	return render_template("user_info.html", username=username, cuisines=cuisines, friends=friends, message=message, username1=username)
 
 	"""
 	request is a special object that Flask provides to access web request information:
