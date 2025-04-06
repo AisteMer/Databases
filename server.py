@@ -233,7 +233,12 @@ def viewFriend(username):
 	comments = cursor1.fetchall()
 	cursor2=g.conn.execute(select_bookmarks, {"username": username})
 	bookmarks = cursor2.fetchall()
-	return render_template("friend.html", comments=comments,username=username, bookmarks=bookmarks)
+
+	grouped_bookmarks = defaultdict(list)
+	for bookmark in bookmarks:
+		grouped_bookmarks[bookmark[0]].append(bookmark)
+		
+	return render_template("friend.html", comments=comments,username=username, grouped_bookmarks=grouped_bookmarks)
 
 @app.route('/view/<int:restaurant_id>', methods=['GET','POST'])
 def viewRestaurant(restaurant_id): 

@@ -22,20 +22,16 @@
 
 <div class="container">
     <h2 class="mb-4 text-center">Bookmarks</h2>
-    {% set current = None %}
-    {% for row in bookmarks %}
-        {% if current != row.bookmark_id %}
-            {% if current is not none %}
-                </ul> <!-- Close the previous bookmark's restaurant list -->
-            {% endif %}
-            <h3>Bookmark: {{ row.bookmarkname }}</h3>
-            <ul>
-            {% set current = row.bookmark_id %}
-        {% endif %}
-        <li>{{ row.name }}</li>
+    {% for bookmark_id, group in grouped_bookmarks.items() %}
+        <h3>Bookmark: {{ group[0][1] }}</h3> <!-- Assuming group[0][1] is the bookmark name -->
+        <ul>
+            {% for row in group %}
+                <li>{{ row[3] }}</li>  <!-- Assuming row[3] is the restaurant name -->
+            {% endfor %}
+        </ul>
     {% endfor %}
-    </ul> <!-- Close the last bookmark's restaurant list -->
 </div>
+
 
 {% endblock %}
 
