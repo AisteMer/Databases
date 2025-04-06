@@ -9,7 +9,7 @@
 <h3> Current Friends:</h3><br> 
 {% for friend in friends %}
     {{friend[1]}} <br> 
-    <a href="{{ url_for('friend', username=friend[1])}}" class="btn btn-primary">
+    <a href="{{ url_for('viewFriend', username=friend[1])}}" class="btn btn-primary">
         View Comments and Bookmarks 
     </a>
 
