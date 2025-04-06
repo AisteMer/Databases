@@ -25,21 +25,20 @@
 <div class="container">
     <h2 class="mb-4 text-center">Bookmarks</h2>
     {% set current = None %}
-    {% for row in bookmarks %}
-        {% if current != row.bookmark_id %}
-            {% if not loop.first %}
-                </ul>
-            {% endif %}
-            <h3>Bookmark {{ row.bookmarkname}}</h3>
-            <ul>
-            {% set current = row.bookmark_id %}
-        {% endif %}
-        <li>{{ row.name }}</li>
-        {% if loop.last %}
+{% for row in bookmarks %}
+    {% if current != row.bookmark_id %}
+        {% if not loop.first %}
             </ul>
         {% endif %}
-    {% endfor %}
-</div>
+        <h3>Bookmark {{ row.bookmark_id }}</h3>
+        <ul>
+        {% set current = row.bookmark_id %}
+    {% endif %}
+    <li>{{ row.name }}</li>
+    {% if loop.last %}
+        </ul>
+    {% endif %}
+{% endfor %}
 
 {% endblock %}
 
