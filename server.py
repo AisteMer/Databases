@@ -217,8 +217,19 @@ def searchRestaurant():
 
 @app.route('/view/friend/<username>', methods=['GET'])
 def viewFriend(username): 
-	#select_comments = text("SELECT comment FROM RATES WHERE userName= :userName")
-	return render_template("friend.html")
+	select_comments = text("SELECT * FROM RATES WHERE userName= :userName")
+	select_bookmarks = text("""
+		SELECT *  
+		FROM BOOKMARK bookmark
+		JOIN Restaurant r on bookmark.restaurant_id = r. restaurant_id
+		WHERE userName= :userName
+		GROUP BY bookmark.bookmark_id
+	""")
+	cursor1=g.conn.execute(select_comments)
+	comments = cursor1.fetchall()
+	cursor2=g.conn.execute(select_bookmarks)
+	bookmarks = cursor2.fetchall()
+	return render_template("friend.html", comments=comments, bookmarks=bookmarks)
 
 @app.route('/view/<int:restaurant_id>', methods=['GET','POST'])
 def viewRestaurant(restaurant_id): 

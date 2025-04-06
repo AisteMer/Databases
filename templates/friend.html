@@ -3,6 +3,21 @@
 <head>
 </head>
 
-<h1>Hello World</h1>
+<div class="container">
+    <h2 class="mb-4 text-center">Ratings</h2>
+    <div class="row">
+        {% for comment in comments %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h6 class="card-title"> Restaurant Id: {{comment.restaurant_id}}</h6> <br> 
+                        <h6 class="card-title"> Rating Out of 5: {{comment.rating}}</h6> <br> 
+                        <h6 class="card-body">Comment: {{ comment.comment }}</h3> 
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 
 {% endblock %}
