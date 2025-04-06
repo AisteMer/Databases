@@ -217,7 +217,11 @@ def searchRestaurant():
 
 @app.route('/view/friend/<username>', methods=['GET'])
 def viewFriend(username): 
-	select_comments = text("SELECT * FROM RATES WHERE username= :username")
+	select_comments = text("""
+						SELECT * FROM RATES 
+						JOIN restaurant r on RATES.restaurant_id= r.restaurant_id
+						WHERE username= :username
+						""")
 	
 	#select_bookmarks = text("""
 		#SELECT *  
