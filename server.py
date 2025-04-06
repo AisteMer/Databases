@@ -217,12 +217,12 @@ def searchRestaurant():
 
 @app.route('/view/friend/<username>', methods=['GET'])
 def viewFriend(username): 
-	select_comments = text("SELECT * FROM RATES WHERE userName= :userName")
+	select_comments = text("SELECT * FROM RATES WHERE username= :username")
 	select_bookmarks = text("""
 		SELECT *  
 		FROM BOOKMARK bookmark
 		JOIN Restaurant r on bookmark.restaurant_id = r. restaurant_id
-		WHERE userName= :userName
+		WHERE username= :username
 		GROUP BY bookmark.bookmark_id
 	""")
 	cursor1=g.conn.execute(select_comments)
