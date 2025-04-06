@@ -158,12 +158,10 @@ def user_info(username):
 	
 	if friends: 
 		pass
-	else: 
-		message = "you have no friends yet ;("
 
 	cursor1.close() 
 	cursor2.close()
-	return render_template("user_info.html", username=username, cuisines=cuisines, friends=friends, message=message, username1=username)
+	return render_template("user_info.html", username=username, cuisines=cuisines, friends=friends, username1=username)
 
 	"""
 	request is a special object that Flask provides to access web request information:
