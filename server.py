@@ -229,7 +229,7 @@ def viewFriend(username):
 	comments = cursor1.fetchall()
 	cursor2=g.conn.execute(select_bookmarks)
 	bookmarks = cursor2.fetchall()
-	return render_template("friend.html", comments=comments, bookmarks=bookmarks)
+	return render_template("friend.html", comments=comments, bookmarks=bookmarks,username=username)
 
 @app.route('/view/<int:restaurant_id>', methods=['GET','POST'])
 def viewRestaurant(restaurant_id): 
