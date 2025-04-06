@@ -225,9 +225,9 @@ def viewFriend(username):
 		WHERE username= :username
 		GROUP BY bookmark.bookmark_id
 	""")
-	cursor1=g.conn.execute(select_comments)
+	cursor1=g.conn.execute(select_comments, {"username": username})
 	comments = cursor1.fetchall()
-	cursor2=g.conn.execute(select_bookmarks)
+	cursor2=g.conn.execute(select_bookmarks, {"username": username})
 	bookmarks = cursor2.fetchall()
 	return render_template("friend.html", comments=comments, bookmarks=bookmarks,username=username)
 
