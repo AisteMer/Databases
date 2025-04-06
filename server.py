@@ -153,7 +153,7 @@ def user_info(username):
 	
 
 	select_friends = text ("SELECT * FROM has_friendship WHERE username1 = :username")
-	cursor2= g.conn.execute(select_friends, {"username1": username})
+	cursor2= g.conn.execute(select_friends, {"username": username})
 	friends = cursor2.fetchall() 
 	
 	if friends: 
