@@ -27,17 +27,17 @@
         <h2 class="mb-4 text-center">Bookmarks</h2>
         {% set current = None %}
         {% for row in bookmarks %}
+            <h3>Bookmark {{ row.bookmarkname }}</h3>
             {% if current != row.bookmark_id %}
                 {% if current is not none %}
-                    </ul> <!-- Close the previous bookmark's restaurant list -->
+                    </ul> 
                 {% endif %}
-                <h3>Bookmark {{ row.bookmarkname }}</h3>
                 <ul>
                 {% set current = row.bookmark_id %}
             {% endif %}
             <li>{{ row.name }}</li>
         {% endfor %}
-        </ul> <!-- Close the last bookmark's restaurant list -->
+        </ul> 
     </div>
     
 
