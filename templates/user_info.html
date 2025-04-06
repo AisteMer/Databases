@@ -7,12 +7,24 @@
 <br> 
 <br> 
 <h3> Current Friends:</h3><br> 
-{% for friend in friends %}
-    {{friend[1]}} <br> 
-    <a href="{{ url_for('viewFriend', username=friend[1])}}" class="btn btn-primary">
-        View Comments and Bookmarks 
-    </a>
 
-{% endfor %}
+<div class="container">
+    <div class="row">
+        {% for friend in friends %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <div class="card-body">
+                        <h3 class="card-title">{{ friend[1]}}</h3>
+                        <a href="{{ url_for('viewFriend', username=friend[1])}}" class="btn btn-primary">
+                            View Details
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
 
 {% endblock %}
+
+
