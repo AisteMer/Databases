@@ -374,6 +374,10 @@ def viewRestaurant(restaurant_id):
 
 @app.route('/<bookmark_id>', methods=['POST','GET'])
 def addEBookmark(bookmark_id):
+	list_res = text("SELECT name FROM Restaurant")
+	cursor=g.conn.execute(list_res)
+	list_res= cursor.fetchall() 
+
 	if request.method == 'POST':
 		name = request.form['name']
 
@@ -399,9 +403,13 @@ def addEBookmark(bookmark_id):
 		"username": username, 
 		"res_id": res_id
 		})
-		return render_template("addEBookmark.html", bookmark_id=bookmark_id)
+		cursor1.close() 
+		cursor2.close()
+		return render_template("addEBookmark.html", bookmark_id=bookmark_id, list_res=list_res)
+	
+	cursor.close() 
 
-	return render_template("addEBookmark.html", bookmark_id=bookmark_id)
+	return render_template("addEBookmark.html", bookmark_id=bookmark_id, list_res=list_res)
 
 
 """""
