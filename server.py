@@ -427,34 +427,35 @@ def createBookmark(username):
 		bookmarkname = request.form['bookmarkname']
 		name = request.form['name']
 
-	get_id = text("SELECT restaurant_id FROM Restaurant WHERE name = :name")
-	cursor1 = g.conn.execute(get_id, {"name": name})
-	res_id = cursor1.fetchone()  
-	res_id = res_id[0]
+		get_id = text("SELECT restaurant_id FROM Restaurant WHERE name = :name")
+		cursor1 = g.conn.execute(get_id, {"name": name})
+		res_id = cursor1.fetchone()  
+		res_id = res_id[0]
 
-	while True:
-		bookmark_id = random.randint(10, 100)
-		check_query = text("SELECT bookmark_id FROM Bookmark WHERE bookmark_id = :bookmark_id")
-		cursor1 = g.conn.execute(check_query, {"bookmark_id": bookmark_id})
-		num = cursor1.fetchone()
-		cursor1.close()
-		if not num:
-			break  
+		while True:
+			bookmark_id = random.randint(10, 100)
+			check_query = text("SELECT bookmark_id FROM Bookmark WHERE bookmark_id = :bookmark_id")
+			cursor1 = g.conn.execute(check_query, {"bookmark_id": bookmark_id})
+			num = cursor1.fetchone()
+			cursor1.close()
+			if not num:
+				break  
 	
 	
-	insert_bookmark = text("""
-		INSERT INTO Bookmark (bookmark_id, bookmarkname, username, restaurant_id) 
-		VALUES (:bookmark_id, :bookmarkname, :username, :res_id)
-		""")
+		insert_bookmark = text("""
+			INSERT INTO Bookmark (bookmark_id, bookmarkname, username, restaurant_id) 
+			VALUES (:bookmark_id, :bookmarkname, :username, :res_id)
+			""")
 
-	g.conn.execute(insert_bookmark, {
-	"bookmark_id": bookmark_id, 
-	"bookmarkname": bookmarkname, 
-	"username": username, 
-	"res_id": res_id
-	})
+		g.conn.execute(insert_bookmark, {
+		"bookmark_id": bookmark_id, 
+		"bookmarkname": bookmarkname, 
+		"username": username, 
+		"res_id": res_id
+		})
 
-	g.conn.commit()
+		g.conn.commit()
+		return render_template("createBookmark.html", username=username, list_res=list_res)
 
 	return render_template("createBookmark.html", username=username, list_res=list_res)
 
