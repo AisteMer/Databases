@@ -188,7 +188,7 @@ def user_info(username):
 
 	return render_template("user_info.html", username=username, cuisines=cuisines, friends=friends, username1=username, users=users, grouped_bookmarks=grouped_bookmarks)
 
-@app.route('/<username>/add_user', methods=['POST'])
+@app.route('/<username>/<username2>', methods=['POST'])
 def addUser(username):
 	if request.method == 'POST':
 		username2 = request.form['username2']
