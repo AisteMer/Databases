@@ -157,7 +157,6 @@ def user_info(username):
 		FROM BOOKMARK bookmark
 		JOIN Restaurant r on bookmark.restaurant_id = r. restaurant_id
 		WHERE username= :username
-		ORDER BY timestamp DESC 
 	""")
 	
 	cursor4=g.conn.execute(select_bookmarks, {"username": username})
