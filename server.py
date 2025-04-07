@@ -126,8 +126,8 @@ def login():
 			check_password = text("SELECT * FROM USERS WHERE username = :username AND password = :password")
 			result_password = g.conn.execute(check_password, {"username": username, "password": password}).fetchone()
 
-		if result_password:
-			return redirect(url_for('user_info', username=username)) 
+			if result_password:
+				return redirect(url_for('user_info', username=username)) 
 		
 		else: 
 			error_message = "Your username or password was incorrect. Please try again!"
