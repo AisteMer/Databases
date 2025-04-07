@@ -367,7 +367,7 @@ def viewRestaurant(restaurant_id):
 			
 			g.conn.execute(insert_moderate, {
 				'admin_id': 1, 
-				"approval": t, 
+				"approval": TRUE, 
 				'restaurant_id': restaurant_id,
 				'username': username
 
