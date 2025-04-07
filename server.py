@@ -378,6 +378,11 @@ def viewRestaurant(restaurant_id):
 				g.conn.commit()
 			except SQLAlchemyError as e:
 				error_message = "Comment rejected: you're posting too frequently or violating community guidelines."
+				return render_template("displayRestaurant.html", 
+                restaurant=restaurant, 
+                ratings=ratings, 
+                error_message=error_message)
+
 
 			cursor7.close()
 			return redirect(url_for('viewRestaurant', restaurant_id=restaurant_id,restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=average_rating, numReviews=numReviews)) 
