@@ -173,7 +173,7 @@ def user_info(username):
 @app.route('/<username>/add_user', methods=['POST'])
 def addUser(username):
 	if request.method == 'POST':
-		username2 = request.form['username']
+		username2 = request.form['username2']
 
 	insert_friend = text("""
 	INSERT INTO has_friendship (userName1, userName2) 
