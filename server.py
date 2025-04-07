@@ -423,6 +423,10 @@ def createBookmark(username):
 	cursor=g.conn.execute(list_res)
 	list_res= cursor.fetchall() 
 
+	if request.method == 'POST':
+		bookmarkname = request.form['bookmarkname']
+		name = request.form['name']
+
 	get_id = text("SELECT restaurant_id FROM Restaurant WHERE name = :name")
 	cursor1 = g.conn.execute(get_id, {"name": name})
 	res_id = cursor1.fetchone()  
@@ -437,8 +441,6 @@ def createBookmark(username):
 		if not num:
 			break  
 	
-	if request.method == 'POST':
-		bookmarkname = request.form['bookmarkname']
 	
 	insert_bookmark = text("""
 		INSERT INTO Bookmark (bookmark_id, bookmarkname, username, restaurant_id) 
