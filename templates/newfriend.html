@@ -3,6 +3,8 @@
 <head>
 </head>
 <h1>Congrats you have added a new friend!</h1>
-
+<a href="{{ url_for('viewFriend', username=friend[1])}}" class="btn btn-primary">
+    View Details
+</a>
 
 {% endblock %}
