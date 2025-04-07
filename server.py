@@ -171,8 +171,23 @@ def user_info(username):
 	return render_template("user_info.html", username=username, cuisines=cuisines, friends=friends, username1=username, users=users)
 
 @app.route('/<username>/add_user', methods=['POST'])
-def addUser(username1):
-	return render_template("newfriend.html", username1=username1)
+def addUser(username):
+	if request.method == 'POST':
+		username2 = request.form['username']
+
+	insert_friend = text("""
+	INSERT INTO has_friendship (userName1, userName2) 
+	VALUES (:username1, :username2 )
+	""")
+
+	g.conn.execute(insert_friend, {
+			'username1': username,
+			'username2': username2,
+	})
+
+	g.conn.commit()
+	
+	return render_template("newfriend.html", username=username)
 
 
 """
