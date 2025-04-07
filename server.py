@@ -405,6 +405,8 @@ def addEBookmark(bookmark_id):
 		"username": username, 
 		"res_id": res_id
 		})
+
+		g.conn.commit()
 		cursor1.close() 
 		cursor2.close()
 		return render_template("addEBookmark.html", bookmark_id=bookmark_id, list_res=list_res)
