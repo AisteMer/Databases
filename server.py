@@ -172,7 +172,7 @@ def user_info(username):
 
 @app.route('/add_user', methods=['GET'])
 def addUser():
-    return render_template("user_info.html")
+    return render_template("newfriend.html")
 
 
 """
