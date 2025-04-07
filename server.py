@@ -363,6 +363,7 @@ def viewRestaurant(restaurant_id):
 			insert_moderate = text("""
 			INSERT INTO MODERATES (admin_id, approval, restaurant_id, username)
 						  VALUES (:admin_id,:approval,:restaurant_id, :username)
+						  ON CONFLICT (admin_id, restaurant_id, username, timestamp) DO NOTHING
 						  """)
 			
 			g.conn.execute(insert_moderate, {
