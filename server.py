@@ -159,7 +159,7 @@ def user_info(username):
 
 
 
-	select_users = text("SELECT * FROM users WHERE username NOT IN (SELECT userName2 FROM has_friendship WHERE username1 = :username) AND username<>username")
+	select_users = text("SELECT * FROM users WHERE username NOT IN (SELECT userName2 FROM has_friendship WHERE username1 = :username) AND username<> :username")
 	cursor3= g.conn.execute(select_users,{"username": username})
 	users = cursor3.fetchall() 
 
