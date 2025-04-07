@@ -170,9 +170,9 @@ def user_info(username):
 
 	return render_template("user_info.html", username=username, cuisines=cuisines, friends=friends, username1=username, users=users)
 
-@app.route('/add_user', methods=['GET'])
-def addUser():
-    return render_template("newfriend.html")
+@app.route('/<username>/add_user', methods=['POST'])
+def addUser(username1):
+	return render_template("newfriend.html", username1=username1)
 
 
 """
