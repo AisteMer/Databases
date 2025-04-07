@@ -157,9 +157,18 @@ def user_info(username):
 	friends = cursor2.fetchall() 
 	
 
-	cursor1.close() 
+
+
+	select_users = text("SELECT * FROM users WHERE username NOT IN (SELECT userName2 FROM has_friendship WHERE username1 = :username)")
+	cursor3= g.conn.execute(select_users,{"username": username})
+	users = cursor3.fetchall() 
+
+	cursor1.close()
 	cursor2.close()
-	return render_template("user_info.html", username=username, cuisines=cuisines, friends=friends, username1=username)
+	cursor3.close()
+
+
+	return render_template("user_info.html", username=username, cuisines=cuisines, friends=friends, username1=username, users=users)
 
 	"""
 	request is a special object that Flask provides to access web request information:
@@ -318,6 +327,7 @@ def viewRestaurant(restaurant_id):
                 error_message=error_message)
 
 	return render_template("displayRestaurant.html", restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=average_rating, numReviews=numReviews)
+
 
 
 
