@@ -188,7 +188,7 @@ def user_info(username):
 
 	return render_template("user_info.html", username=username, cuisines=cuisines, friends=friends, username1=username, users=users, grouped_bookmarks=grouped_bookmarks)
 
-@app.route('/<username>/add_user', methods=['POST'])
+@app.route('/<username>/add_user', methods=['POST','GET'])
 def addUser(username):
 	if request.method == 'POST':
 		username2 = request.form['username2']
@@ -199,8 +199,8 @@ def addUser(username):
 	""")
 
 	g.conn.execute(insert_friend, {
-			'username1': username2,
-			'username2': username,
+			'username1': username,
+			'username2': username2,
 	})
 
 	g.conn.commit()
