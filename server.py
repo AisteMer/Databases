@@ -151,7 +151,7 @@ def login():
 def user_info(username):
 	select_fav_cuisine = text("SELECT * FROM has_fav WHERE userName = :userName")
 	cursor1 = g.conn.execute(select_fav_cuisine, {"userName": username})
-	cuisines = cursor1.fetchone()  
+	cuisines = cursor1.fetchone() 
 	
 	select_bookmarks = text("""
 		SELECT *  
@@ -161,7 +161,7 @@ def user_info(username):
 	""")
 	
 	cursor4=g.conn.execute(select_bookmarks, {"username": username})
-	bookmarks = cursor4.fetchall()
+	bookmarks = cursor4.fetchall() or [] 
 
 	grouped_bookmarks = {}
 	for bookmark in bookmarks:
@@ -173,14 +173,14 @@ def user_info(username):
 
 	select_friends = text ("SELECT * FROM has_friendship WHERE username1 = :username")
 	cursor2= g.conn.execute(select_friends, {"username": username})
-	friends = cursor2.fetchall() 
+	friends = cursor2.fetchall() or []
 	
 
 
 
 	select_users = text("SELECT * FROM users WHERE username NOT IN (SELECT userName2 FROM has_friendship WHERE username1 = :username) AND username<> :username")
 	cursor3= g.conn.execute(select_users,{"username": username})
-	users = cursor3.fetchall() 
+	users = cursor3.fetchall() or []
 
 	cursor1.close()
 	cursor2.close()
