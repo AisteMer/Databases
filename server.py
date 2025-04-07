@@ -205,7 +205,7 @@ def addUser(username):
 
 	g.conn.commit()
 	
-	return render_template("newfriend.html", username=username)
+	return render_template("friend.html", username=username)
 
 
 """
