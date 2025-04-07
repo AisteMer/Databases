@@ -11,7 +11,7 @@
     <h2 class="mb-4 text-center">Bookmarks</h2>
     {% for bookmark_id, group in grouped_bookmarks.items() %}
         <h3>Bookmark: {{ group[0][1] }}</h3> 
-        <form action="{{ url_for('addEBookmark', bookmark_id=group[0][0]) }}"></form>
+        <form action="{{ url_for('addEBookmark', bookmark_id=group[0][0]), username}}"></form>
         <button type="submit" class="btn btn-primary">Add to Bookmark</button>
         <ul>
             {% for row in group %}
