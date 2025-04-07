@@ -385,6 +385,7 @@ def addEBookmark(bookmark_id):
 		cursor1 = g.conn.execute(get_id, {"name": name})
 		res_id = cursor1.fetchone()  
 		res_id = res_id[0]
+		print(res_id)
 
 		get_bookmark = text("SELECT bookmarkname, username FROM Bookmark WHERE bookmark_id = :bookmark_id")
 		cursor2 = g.conn.execute(get_bookmark, {"bookmark_id": bookmark_id})
