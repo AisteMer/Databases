@@ -28,9 +28,6 @@
     {% endfor %}
     {% else %}
     <p> No Bookmarks yet!</p>
-    <form action="{{ url_for('addEBookmark', bookmark_id=group[0][0]) }}">
-        <button type="submit" class="btn btn-primary">Add to Bookmark</button>
-    </form>
     {% endif %}
 </div>
 <br><br><br>
