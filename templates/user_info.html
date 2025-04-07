@@ -42,6 +42,7 @@
 
 <div class="container">
     <div class="row">
+        {% if friends %}
         {% for friend in friends %}
             <div class="col-md-4 mb-4">
                 <div class="card">
@@ -54,6 +55,9 @@
                 </div>
             </div>
         {% endfor %}
+        {% else %}
+        <p>No friends yet!</p>
+        {% endif %}
     </div>
 </div>
 
@@ -61,6 +65,7 @@
 <h3>Follow Requests</h3>
 <div class="container">
     <div class="row">
+        {% if users %}
         {% for user in users %}
             <div class="col-md-4 mb-4">
                 <div class="card">
@@ -75,6 +80,9 @@
                 </div>
             </div>
         {% endfor %}
+        {% else %}
+        <p>You Follow Everyone!</p>
+        {% endif %}
     </div>
 </div>
 
