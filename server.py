@@ -170,6 +170,9 @@ def user_info(username):
 
 	return render_template("user_info.html", username=username, cuisines=cuisines, friends=friends, username1=username, users=users)
 
+def addUser(username): 
+	return render_template("user_info.html",username=username)
+
 	"""
 	request is a special object that Flask provides to access web request information:
 
