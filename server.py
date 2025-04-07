@@ -13,6 +13,7 @@ from sqlalchemy import *
 from sqlalchemy.pool import NullPool
 from flask import Flask, request, render_template, g, redirect, url_for, Response
 import random 
+import SQLAlchemyError
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask(__name__, template_folder=tmpl_dir)
@@ -348,33 +349,36 @@ def viewRestaurant(restaurant_id):
 		user_exists = cursor7.fetchone()
 
 		if user_exists: 
-			insert_comment = text("""
-			INSERT INTO RATES (restaurant_id, userName, rating, comment) 
-			VALUES (:restaurant_id, :username, :rating, :comment)
-			""")
+			try: 
+				insert_comment = text("""
+				INSERT INTO RATES (restaurant_id, userName, rating, comment) 
+				VALUES (:restaurant_id, :username, :rating, :comment)
+				""")
 
-			g.conn.execute(insert_comment, {
-			'restaurant_id': restaurant_id,
-			'username': username,
-			'rating': rating,
-			'comment': comment
-			})
+				g.conn.execute(insert_comment, {
+				'restaurant_id': restaurant_id,
+				'username': username,
+				'rating': rating,
+				'comment': comment
+				})
 
-			insert_moderate = text("""
-			INSERT INTO MODERATES (admin_id, approval, restaurant_id, username)
+				insert_moderate = text("""
+				INSERT INTO MODERATES (admin_id, approval, restaurant_id, username)
 						  VALUES (:admin_id,:approval,:restaurant_id, :username)
-						  ON CONFLICT (admin_id, restaurant_id, username, timestamp) DO NOTHING
 						  """)
 			
-			g.conn.execute(insert_moderate, {
+				g.conn.execute(insert_moderate, {
 				'admin_id': 1, 
 				"approval": True, 
 				'restaurant_id': restaurant_id,
 				'username': username
 
-			})
+				})
 
-			g.conn.commit()
+				g.conn.commit()
+			except SQLAlchemyError as e:
+				error_message = "Comment rejected: you're posting too frequently or violating community guidelines."
+
 			cursor7.close()
 			return redirect(url_for('viewRestaurant', restaurant_id=restaurant_id,restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=average_rating, numReviews=numReviews)) 
 		
