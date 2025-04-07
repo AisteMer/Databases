@@ -9,7 +9,7 @@
         <label for="res_name">Select a Restaurant:</label>
         <select id="name" name="name">
             {% for restaurant in list_res %}
-                <option value="{{ restaurant[0] }}">{{ restaurant[0] }}</option>
+                <option value="{{ restaurant[2] }}">{{ restaurant[2] }}</option>
             {% endfor %}
         </select>
         <br>
