@@ -12,6 +12,7 @@ import os
 from sqlalchemy import *
 from sqlalchemy.pool import NullPool
 from flask import Flask, request, render_template, g, redirect, url_for, Response
+import random 
 
 tmpl_dir = os.path.join(os.path.dirname(os.path.abspath(__file__)), 'templates')
 app = Flask(__name__, template_folder=tmpl_dir)
@@ -416,37 +417,46 @@ def addEBookmark(bookmark_id):
 	return render_template("addEBookmark.html", bookmark_id=bookmark_id, list_res=list_res)
 
 
-@app.route('/create_bookmark', methods=['POST','GET'])
-def createBookmark(): 
+@app.route('/create_bookmark/<username>', methods=['POST','GET'])
+def createBookmark(username): 
+	list_res = text("SELECT name FROM Restaurant")
+	cursor=g.conn.execute(list_res)
+	list_res= cursor.fetchall() 
+
+	get_id = text("SELECT restaurant_id FROM Restaurant WHERE name = :name")
+	cursor1 = g.conn.execute(get_id, {"name": name})
+	res_id = cursor1.fetchone()  
+	res_id = res_id[0]
+
+	while True:
+		bookmark_id = random.randint(10, 100)
+		check_query = text("SELECT bookmark_id FROM Bookmark WHERE bookmark_id = :bookmark_id")
+		cursor1 = g.conn.execute(check_query, {"bookmark_id": bookmark_id})
+		num = cursor1.fetchone()
+		cursor1.close()
+		if not num:
+			break  
 	
-	return render_template("createBookmark.html")
+	if request.method == 'POST':
+		bookmarkname = request.form['bookmarkname']
+	
+	insert_bookmark = text("""
+		INSERT INTO Bookmark (bookmark_id, bookmarkname, username, restaurant_id) 
+		VALUES (:bookmark_id, :bookmarkname, :username, :res_id)
+		""")
+
+	g.conn.execute(insert_bookmark, {
+	"bookmark_id": bookmark_id, 
+	"bookmarkname": bookmarkname, 
+	"username": username, 
+	"res_id": res_id
+	})
+
+	g.conn.commit()
+
+	return render_template("createBookmark.html", username=username, list_res=list_res)
 
 
-"""""
-@app.route('/view/<restaurant>', methods=['GET', 'POST'])
-def viewRestaurant(): 
-	return render_template ('restaurant.html')
-
-@app.route('/view/<userName>', methods=['GET'])
-def viewProfile(): 
-	return render_template('userName.html')
-
-@app.route('/view/<userName>/Bookmarks', methods=['GET'])
-def viewAllBookmarks(): 
-	return render_template('Bookmark.html')
-
-@app.route('/view/<userName>/Bookmarks/<bookmarkName>', methods=['GET'])
-def viewSpecificBookmark(): 
-	return render_template('<bookmarkName>.html')
-
-@app.route('/view/<userName>/friends', methods=['GET'])
-def viewFriends(): 
-	return render_template('friends.html')
-
-@app.route('/view/users', methods=['GET','POST'])
-def friendRequest():
-	return render_template('users.html')
-"""
 #
 # example of a database query
 #
