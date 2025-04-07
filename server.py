@@ -417,7 +417,7 @@ def addEBookmark(bookmark_id):
 	return render_template("addEBookmark.html", bookmark_id=bookmark_id, list_res=list_res)
 
 
-@app.route('/login/<username>/create_bookmark', methods=['POST','GET'])
+@app.route('/login/create_bookmark/<username>', methods=['POST','GET'])
 def createBookmark(username): 
 	print (username)
 	list_res = text("SELECT name FROM Restaurant")

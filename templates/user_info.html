@@ -6,7 +6,7 @@
 <h3>favorite cuisine: {{cuisines.cuisinename}}</h3>
 <br> 
 <div class="container">
-<form action="{{ url_for('createBookmark') }}">
+<form action="{{ url_for('createBookmark', username=username) }}">
     <button type="submit" class="btn btn-primary">Create New Bookmark</button>
 </form>
 </div>
