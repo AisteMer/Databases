@@ -375,6 +375,7 @@ def viewRestaurant(restaurant_id):
 
 			g.conn.commit()
 			cursor7.close()
+			app.run(debug=True)
 			return render_template('displayRestaurant.html', restaurant_id=restaurant_id,restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=average_rating, numReviews=numReviews)
 		
 		else: 
