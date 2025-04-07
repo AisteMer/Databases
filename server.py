@@ -416,6 +416,11 @@ def addEBookmark(bookmark_id):
 	return render_template("addEBookmark.html", bookmark_id=bookmark_id, list_res=list_res)
 
 
+@app.route('/create_bookmark', methods=['POST','GET'])
+def createBookmark(): 
+	return render_template("createBookmark.html")
+
+
 """""
 @app.route('/view/<restaurant>', methods=['GET', 'POST'])
 def viewRestaurant(): 
