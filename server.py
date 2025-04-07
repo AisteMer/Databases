@@ -151,6 +151,23 @@ def user_info(username):
 	cursor1 = g.conn.execute(select_fav_cuisine, {"userName": username})
 	cuisines = cursor1.fetchone()  
 	
+	select_bookmarks = text("""
+		SELECT *  
+		FROM BOOKMARK bookmark
+		JOIN Restaurant r on bookmark.restaurant_id = r. restaurant_id
+		WHERE username= :username
+	""")
+	
+	cursor4=g.conn.execute(select_bookmarks, {"username": username})
+	bookmarks = cursor4.fetchall()
+
+	grouped_bookmarks = {}
+	for bookmark in bookmarks:
+		bookmark_id = bookmark[0]
+		if bookmark_id not in grouped_bookmarks:
+			grouped_bookmarks[bookmark_id] = []
+		grouped_bookmarks[bookmark_id].append(bookmark)
+
 
 	select_friends = text ("SELECT * FROM has_friendship WHERE username1 = :username")
 	cursor2= g.conn.execute(select_friends, {"username": username})
@@ -166,9 +183,10 @@ def user_info(username):
 	cursor1.close()
 	cursor2.close()
 	cursor3.close()
+	cursor4.close()
 
 
-	return render_template("user_info.html", username=username, cuisines=cuisines, friends=friends, username1=username, users=users)
+	return render_template("user_info.html", username=username, cuisines=cuisines, friends=friends, username1=username, users=users, grouped_bookmarks=grouped_bookmarks)
 
 @app.route('/<username>/add_user', methods=['POST'])
 def addUser(username):

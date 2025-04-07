@@ -6,6 +6,20 @@
 <h3>favorite cuisine: {{cuisines.cuisinename}}</h3>
 <br> 
 <br> 
+
+<div class="container">
+    <h2 class="mb-4 text-center">Bookmarks</h2>
+    {% for bookmark_id, group in grouped_bookmarks.items() %}
+        <h3>Bookmark: {{ group[0][1] }}</h3> 
+        <ul>
+            {% for row in group %}
+                <li>{{ row[6] }}</li> 
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</div>
+<br> <br> <br> 
+
 <h3> Current Friends:</h3><br> 
 
 <div class="container">
