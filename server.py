@@ -122,21 +122,18 @@ def login():
 
 		check_username = text("SELECT * FROM USERS WHERE username = :username")
 		result_username = g.conn.execute(check_username, {"username": username}).fetchone()
-		
-		if result_username: 
-			check_password = text("SELECT * FROM USERS WHERE username = :username AND password = :password")
-			result_password = g.conn.execute(check_password, {"username": username, "password": password}).fetchone()
+		check_password = text("SELECT * FROM USERS WHERE username = :username AND password = :password")
+		result_password = g.conn.execute(check_password, {"username": username, "password": password}).fetchone()
 
-			if result_password:
+		if result_password:
 				return redirect(url_for('user_info', username=username)) 
-		
-		else: 
-			error_message = "Your username or password was incorrect. Please try again!"
-			select_restaurants= text("SELECT * from Restaurant")
-			cursor=g.conn.execute(select_restaurants)
-			restaurants = cursor.fetchall()
-			cursor.close()
-			return render_template('home.html', restaurants=restaurants, error_message=error_message)
+		 
+		error_message = "Your username or password was incorrect. Please try again!"
+		select_restaurants= text("SELECT * from Restaurant")
+		cursor=g.conn.execute(select_restaurants)
+		restaurants = cursor.fetchall()
+		cursor.close()
+		return render_template('home.html', restaurants=restaurants, error_message=error_message)
 	
 	else: 
 		select_restaurants= text("SELECT * from Restaurant")
