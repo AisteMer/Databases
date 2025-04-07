@@ -375,7 +375,7 @@ def viewRestaurant(restaurant_id):
 
 			g.conn.commit()
 			cursor7.close()
-			return redirect(url_for('displayRestaurant', restaurant_id=restaurant_id,restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=average_rating, numReviews=numReviews)) 
+			return redirect(url_for('viewRestaurant', restaurant_id=restaurant_id,restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=average_rating, numReviews=numReviews)) 
 		
 		else: 
 			error_message = "You must be a user to post a comment!"
