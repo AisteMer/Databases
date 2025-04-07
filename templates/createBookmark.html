@@ -4,7 +4,7 @@
 </head>
 <div class="container"> 
     <h1>Submit your restaurant:</h1>
-    <form action = "{{url_for('addEBookmark', bookmark_id=bookmark_id) }}" method ="POST">
+    <form action = "{{url_for('createBookmark',username=username) }}" method ="POST">
        <div class = "form-group">
         <label for="bookmarkname">Enter Bookmarkname:</label>
         <input type="text" id="bookmarkname" name="bookmarkname" required> <br> 
