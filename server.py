@@ -372,9 +372,35 @@ def viewRestaurant(restaurant_id):
 	return render_template("displayRestaurant.html", restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=average_rating, numReviews=numReviews)
 
 
-@app.route('/<bookmark_id>', methods=['GET','POST'])
+@app.route('/<bookmark_id>', methods=['POST'])
 def addEBookmark(bookmark_id):
-	return render_template("addEBookmark.html", bookmark_id=bookmark_id)
+    if request.method == 'POST':
+        name = request.form['name']
+
+        get_id = text("SELECT restaurant_id FROM Restaurant WHERE name = :name")
+        cursor1 = g.conn.execute(get_id, {"name": name})
+        res_id = cursor1.fetchone()  
+
+        get_bookmark = text("SELECT bookmarkname, username FROM Bookmark WHERE bookmark_id = :bookmark_id")
+        cursor2 = g.conn.execute(get_bookmark, {"bookmark_id": bookmark_id})
+        bookmark = cursor2.fetchone()  
+            
+        if bookmark:
+            bookmarkname = bookmark[0]  
+            username = bookmark[1]      
+
+        insert_bookmark = text("""
+         INSERT INTO Bookmark (bookmark_id, bookmarkname, username, restaurant_id) 
+    	 VALUES (:bookmark_id, :bookmarkname, :username, :res_id)
+        """)
+        g.conn.execute(insert_bookmark, {
+        	"bookmark_id": bookmark_id, 
+             "bookmarkname": bookmarkname, 
+            "username": username, 
+            "res_id": res_id
+    })
+        return render_template("addEBookmark.html", bookmark_id=bookmark_id)
+
 
 """""
 @app.route('/view/<restaurant>', methods=['GET', 'POST'])
