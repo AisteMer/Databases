@@ -199,8 +199,8 @@ def addUser(username):
 	""")
 
 	g.conn.execute(insert_friend, {
-			'username1': username,
-			'username2': username2,
+			'username1': username2,
+			'username2': username,
 	})
 
 	g.conn.commit()
