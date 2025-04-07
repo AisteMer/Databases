@@ -368,8 +368,8 @@ def viewRestaurant(restaurant_id):
 
 
 @app.route('/<username>/<int:bookmark_id>', methods=['GET','POST'])
-def addEBookmark(bookmark_id, username):
-	return render_template("addEBookmark.html", bookmark_id=bookmark_id, username=username)
+def addEBookmark(username, bookmark_id):
+	return render_template("addEBookmark.html",username=username, bookmark_id=bookmark_id)
 
 """""
 @app.route('/view/<restaurant>', methods=['GET', 'POST'])
