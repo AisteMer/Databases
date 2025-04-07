@@ -191,7 +191,7 @@ def user_info(username):
 @app.route('/<username>/add_user', methods=['POST','GET'])
 def addUser(username):
 	if request.method == 'POST':
-		username2 = request.form['username2']
+		username2 = request.form['username2'].strip() 
 
 	insert_friend = text("""
 	INSERT INTO has_friendship (userName1, userName2) 
@@ -264,6 +264,7 @@ def searchRestaurant():
 
 @app.route('/view/friend/<username>', methods=['GET'])
 def viewFriend(username): 
+	username = username.strip()
 	select_comments = text("""
 						SELECT * FROM RATES 
 						JOIN restaurant r on RATES.restaurant_id= r.restaurant_id
