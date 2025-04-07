@@ -372,7 +372,7 @@ def viewRestaurant(restaurant_id):
 	return render_template("displayRestaurant.html", restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=average_rating, numReviews=numReviews)
 
 
-@app.route('/<bookmark_id>', methods=['POST','GET'])
+@app.route('/add_to_bookmark/<bookmark_id>', methods=['POST','GET'])
 def addEBookmark(bookmark_id):
 	list_res = text("SELECT name FROM Restaurant")
 	cursor=g.conn.execute(list_res)
