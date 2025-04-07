@@ -281,6 +281,10 @@ def viewFriend(username):
 	cursor2=g.conn.execute(select_bookmarks, {"username": username})
 	bookmarks = cursor2.fetchall()
 
+	print(f"Username being queried: {username}")
+	print(f"Number of comments found: {len(comments)}")
+	print(f"Number of bookmarks found: {len(bookmarks)}")
+
 	grouped_bookmarks = {}
 	for bookmark in bookmarks:
 		bookmark_id = bookmark[0]
