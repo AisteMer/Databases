@@ -360,6 +360,19 @@ def viewRestaurant(restaurant_id):
 			'comment': comment
 			})
 
+			insert_moderate = text("""
+			INSERT INTO MODERATES (admin_id, approval, restaurant_id, username)
+						  VALUES (:admin_id,:approval,:restaurant_id, :username)
+						  """)
+			
+			g.conn.execute(insert_moderate, {
+				'admin_id': 1, 
+				"approval": t, 
+				'restaurant_id': restaurant_id,
+				'username': username
+
+			})
+
 			g.conn.commit()
 			cursor7.close()
 			return render_template('displayRestaurant.html', restaurant_id=restaurant_id,restaurant=restaurant, ratings=ratings, locations=locations, cuisines=cuisines, awards=awards, avg_rating=average_rating, numReviews=numReviews)
