@@ -1,25 +1,23 @@
 {% extends 'navbar.html' %}
 {% block content %}
-<head>
-</head>
-<div class="container"> 
+<div class="container mt-4"> 
     <h1>Submit your restaurant:</h1>
-    <form action = "{{url_for('createBookmark',username=username) }}" method ="POST">
-       <div class = "form-group">
-        <label for="bookmarkname">Enter Bookmarkname:</label>
-        <input type="text" id="bookmarkname" name="bookmarkname" required> <br> 
-        <label for="res_name">Select a Restaurant:</label>
-        <select id="name" name="name">
-            {% for restaurant in list_res %}
-                <option value="{{ restaurant[0]}}">{{ restaurant[0] }}</option>
-            {% endfor %}
-        </select>
-        <br>
-        <button type="submit">Submit</button>
-       </div>
+    <form action="{{ url_for('createBookmark', username=username) }}" method="POST">
+        <div class="form-group mb-3">
+            <label for="bookmarkname">Enter Bookmark Name:</label>
+            <input type="text" class="form-control" id="bookmarkname" name="bookmarkname" required>
+        </div>
+
+        <div class="form-group mb-3">
+            <label for="restaurant">Select a Restaurant:</label>
+            <select class="form-control" id="restaurant" name="name" required>
+                {% for restaurant in list_res %}
+                    <option value="{{ restaurant[0] }}">{{ restaurant[0] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
-    
-    </div>
-
-
+</div>
 {% endblock %}

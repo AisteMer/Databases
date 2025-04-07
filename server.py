@@ -419,6 +419,7 @@ def addEBookmark(bookmark_id):
 
 @app.route('/create_bookmark/<username>', methods=['POST','GET'])
 def createBookmark(username): 
+	print (username)
 	list_res = text("SELECT name FROM Restaurant")
 	cursor=g.conn.execute(list_res)
 	list_res= cursor.fetchall() 
